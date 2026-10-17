@@ -5,19 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Celadon | Paxos Luxury</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Teko:wght@400;500&display=swap" rel="stylesheet">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        .arrival-label {
+    color: var(--accent-olive); 
+    letter-spacing: 3px; 
+    font-size: 0.8rem; 
+    font-weight: 700;
+}
+        /* --- SCENT BOX STYLES --- */
+.scent-sample {
+    color: var(--accent-olive); 
+    margin-top: 15px; 
+    display: block;
+}
+        /* --- BOOKING BAR & LIGHTBOX CLEANUP --- */
+.rate-label {
+    display: block; 
+    font-size: 0.7rem; 
+    text-transform: uppercase; 
+    color: #626262;
+}
+
+.rate-amount {
+    font-size: 1.4rem; 
+    color: var(--text-main);
+}
+
+.close-lb {
+    position: absolute; 
+    top: 30px; 
+    right: 30px; 
+    color: white; 
+    font-size: 40px; 
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    line-height: 1;
+}
+        /* --- FEATURED SECTION STYLES --- */
+.featured-section {
+    padding: 50px 0; 
+    border-bottom: 1px solid #ccc; 
+    text-align: center;
+}
+
+.featured-label {
+    font-size: 0.7rem; 
+    letter-spacing: 3px; 
+    color: #626262; 
+    margin-bottom: 20px;
+}
+
+.featured-logos {
+    display: flex; 
+    justify-content: center; 
+    gap: 50px; 
+    flex-wrap: wrap; 
+    opacity: 0.5; 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.5rem; 
+    font-style: italic;
+}
+        /* --- INTRO SECTION CLEANUP --- */
+.welcome-label {
+    color: var(--accent-olive); 
+    letter-spacing: 2px; 
+    font-weight: 700; 
+    text-transform: uppercase;
+}
+
+.weather-container {
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+    margin-top: 30px; 
+    margin-bottom: 40px;
+}
+
+.weather-icon {
+    font-size: 2rem; 
+    color: var(--accent-gold);
+}
+
+.weather-info strong {
+    font-size: 1.2rem;
+}
+
+.weather-info span {
+    display: block; 
+    font-size: 0.8rem; 
+    color: #626262;
+}
+
+/* Hotspots */
+.intro-img-wrapper { position: relative; }
+.hotspot-audio { top: 60%; left: 75%; }
+.hotspot-marble { top: 40%; left: 44%; }
+        /* --- DISCOVER CARD IMAGE STYLES --- */
+.discover-img {
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    margin-bottom: 15px;
+}
+        /* --- NATURE FEATURES EXTRACTED STYLES --- */
+.features-list-wrapper {
+    margin-top: 30px;
+}
+
+.feature-item {
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 15px;
+}
+
+.feature-item:last-child {
+    margin-bottom: 0;
+}
+
+.feature-icon {
+    color: var(--accent-gold); 
+    font-size: 1.2rem;
+}
+
+.feature-text {
+    font-weight: 600; 
+    letter-spacing: 1px; 
+    text-transform: uppercase;
+}
         .wishlist-icon {
     position: absolute; top: 20px; right: 20px; z-index: 10;
     width: 40px; height: 40px; background: white; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: 0.3s; opacity: 0; transform: translateY(-10px);
+            cursor: pointer; transition: 0.3s; opacity: 0; transform: translateY(-10px); border: 0; padding: 0;
 }
 .dest-card:hover .wishlist-icon, .discover-card:hover .wishlist-icon {
     opacity: 1; transform: translateY(0);
@@ -83,18 +209,19 @@
         }
         .hero-bg {
             position: absolute; top: -10%; left: 0; width: 100%; height: 120%;
-            background: url('Gemini_Generated_Image_hlnpg7hlnpg7hlnp .jpg') center/cover no-repeat;
+            background: url('Gemini_Generated_Image_hlnpg7hlnpg7hlnp.jpg') center/cover no-repeat;
             z-index: 0; filter: brightness(0.85);
         }
         .hero-content { z-index: 2; color: white; position: relative; }
         .hero-subtitle { font-size: 1rem; letter-spacing: 6px; text-transform: uppercase; color: #d4e8b6; font-weight: 600; margin-bottom: 20px; display: block; opacity: 0; }
         .hero-title { font-size: 7vw; font-style: italic; color: #ffffff; text-shadow: 0 5px 30px rgba(0,0,0,0.2); margin-bottom: 30px; opacity: 0; }
-        
         .btn-round {
             width: 140px; height: 140px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.6);
             display: flex; align-items: center; justify-content: center; color: white;
             text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
-            backdrop-filter: blur(5px); margin: 0 auto; transition: 0.3s; opacity: 0; cursor: pointer;
+            -webkit-backdrop-filter: blur(5px); /* <-- Η προσθήκη μας */
+            backdrop-filter: blur(5px); 
+            margin: 0 auto; transition: 0.3s; opacity: 0; cursor: pointer; background: transparent; font-family: inherit;
         }
         .btn-round:hover { background: white; color: var(--accent-olive); transform: scale(1.1); }
 
@@ -163,17 +290,21 @@
         .btn-reserve:hover { background: var(--text-main); }
 
         /* AUDIO FLOAT */
-        .audio-float {
-            position: fixed; bottom: 100px; right: 40px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+      .audio-float {
+            position: fixed; bottom: 100px; right: 40px; background: rgba(255,255,255,0.9); 
+            -webkit-backdrop-filter: blur(10px); /* <-- Προστέθηκε */
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(85, 107, 47, 0.2); padding: 10px 20px; border-radius: 50px;
-            color: var(--text-main); z-index: 990; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s;
+            color: var(--text-main); z-index: 990; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; font: inherit;
         }
         
         /* SPOTIFY (FIXED IN HEADER) */
         .spotify-badge {
             position: absolute; bottom: 40px; right: 40px; z-index: 20;
             display: flex; align-items: center; gap: 15px; padding: 10px 20px;
-            background: rgba(43, 51, 31, 0.6); backdrop-filter: blur(10px);
+            background: rgba(43, 51, 31, 0.6); 
+            -webkit-backdrop-filter: blur(10px); /* <-- Προστέθηκε */
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 50px; text-decoration: none; transition: 0.3s; color: white;
         }
@@ -184,12 +315,26 @@
             margin-top: 40px; text-align: left; padding-left: 20px; border-left: 2px solid var(--accent-gold);
         }
         .mh-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-olive); font-weight: 700; display: block; }
-        .mh-time {
-            font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; line-height: 1; margin: 5px 0; font-weight: 600;
-            /* Golden Gradient */
-            background: linear-gradient(45deg, #D4AF37, #ffcc00); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+       .mh-time {
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 3.5rem; 
+    line-height: 1; 
+    margin: 5px 0; 
+    font-weight: 600;
+    
+    /* Fallback χρώμα αν το gradient αποτύχει */
+    color: #D4AF37; 
+    
+    /* Gradient εφαρμογή */
+    background: linear-gradient(45deg, #D4AF37, #ffcc00); 
+    
+    /* Cross-browser background clip */
+    -webkit-background-clip: text; 
+    background-clip: text;
+    
+    /* Cross-browser text fill */
+    -webkit-text-fill-color: transparent;
+}
         .mh-sub { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-style: italic; color: #888; }
 
         /* WELCOME BUILDER */
@@ -198,6 +343,7 @@
             background: var(--bg-body); border: 1px solid #ddd; padding: 30px 20px; border-radius: 4px;
             cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
         }
+        .build-option .option-toggle { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
         .build-option:hover { transform: translateY(-5px); border-color: var(--accent-gold); }
         .build-option i { font-size: 2rem; color: #ccc; margin-bottom: 15px; transition:0.3s; }
         .build-option span { display: block; font-weight: 600; color: #555; transition:0.3s; }
@@ -242,10 +388,12 @@
 
         /* DISCOVER & LIGHTBOX */
         .discover-card { position: relative; height: 400px; overflow: hidden; cursor: pointer; border-radius: 4px; }
+        .discover-card-link { position: absolute; inset: 0; z-index: 1; }
         .discover-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
         .discover-card:hover img { transform: scale(1.05); }
         .discover-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white; text-align: left; }
-        .lightbox { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
+        .lightbox { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(0,0,0,0.95); }
+        .lightbox[open] { display: block; }
         .lightbox-content { margin: 5vh auto; display: block; max-height: 90vh; max-width: 90vw; }
 
         .discover-overlay h1,
@@ -296,9 +444,9 @@
         </div>
     </nav>
 
-    <div class="audio-float magnetic-btn" onclick="toggleAudio()">
+    <button type="button" class="audio-float magnetic-btn" aria-label="Toggle Sound of Paxos" onclick="toggleAudio()">
         <i class="fas fa-leaf" id="audioIcon"></i> <span>Sound of Paxos</span>
-    </div>
+    </button>
     <audio id="bgAudio" loop><source src="paxos-nature.mp3" type="audio/mpeg"></audio>
 
     <div id="smooth-wrapper">
@@ -310,7 +458,7 @@
                 <div class="hero-content">
                     <span class="hero-subtitle">In the Olive Grove</span>
                     <h1 class="hero-title">Celadon</h1>
-                    <div class="btn-round magnetic-btn" onclick="document.querySelector('#intro').scrollIntoView({behavior:'smooth'})">Explore</div>
+                    <button type="button" class="btn-round magnetic-btn" onclick="document.querySelector('#intro').scrollIntoView({behavior:'smooth'})">Explore</button>
                 </div>
 
                 <a href="LINK_PLAYLIST" target="_blank" class="spotify-badge magnetic-btn">
@@ -318,53 +466,58 @@
                 </a>
             </header>
 
-            <div style="padding: 50px 0; border-bottom: 1px solid #ccc; text-align: center;">
-                <p style="font-size:0.7rem; letter-spacing:3px; color:#888; margin-bottom:20px;">FEATURED IN</p>
-                <div style="display:flex; justify-content:center; gap:50px; flex-wrap:wrap; opacity:0.5; font-family:'Cormorant Garamond'; font-size:1.5rem; font-style:italic;">
-                    <span>VOGUE</span><span>Condé Nast</span><span>TRAVEL+LEISURE</span>
+         <div class="featured-section">
+    <p class="featured-label">FEATURED IN</p>
+    <div class="featured-logos">
+        <span>VOGUE</span>
+        <span>Condé Nast</span>
+        <span>TRAVEL+LEISURE</span>
+    </div>
+</div>
+
+           <section id="intro" class="bg-alt">
+    <div class="intro-grid">
+        <div class="intro-text">
+            <span class="welcome-label">Welcome</span>
+            <h3 class="reveal-text">The Art of Seclusion</h3>
+            <p class="reveal-text">Hidden within a centuries-old Paxiot olive grove, Celadon is not merely a destination, but a return to the essential. An unseen world of unparalleled privacy, where time slows down and true luxury is measured in absolute silence.</p>
+            
+            <div class="reveal-text weather-container">
+                <i class="fas fa-sun weather-icon" aria-hidden="true"></i>
+                <div class="weather-info">
+                    <strong>25°C</strong> 
+                    <span>Gaios Today</span>
                 </div>
             </div>
 
-            <section id="intro" class="bg-alt">
-                <div class="intro-grid">
-                    <div class="intro-text">
-                        <span style="color:var(--accent-olive); letter-spacing:2px; font-weight:700; text-transform:uppercase;">Welcome</span>
-                        <h3 class="reveal-text">The Art of Seclusion</h3>
-                        <p class="reveal-text">Hidden within a centuries-old Paxiot olive grove, Celadon is not merely a destination, but a return to the essential. An unseen world of unparalleled privacy, where time slows down and true luxury is measured in absolute silence</p>
-                        
-                        <div class="reveal-text" style="display:flex; gap:20px; align-items:center; margin-top:30px; margin-bottom:40px;">
-                            <i class="fas fa-sun" style="font-size:2rem; color:var(--accent-gold);"></i>
-                            <div><strong style="font-size:1.2rem;">25°C</strong> <span style="display:block; font-size:0.8rem; color:#777;">Gaios Today</span></div>
-                        </div>
+            <div class="magic-hour-container reveal-text">
+                <span class="mh-label">SUNSET AT ERIMITIS</span>
+                <div class="mh-time" id="sunsetTimer">00:00:00</div>
+                <span class="mh-sub">Golden hour on the cliffs.</span>
+            </div>
+        </div>
 
-                        <div class="magic-hour-container reveal-text">
-                            <span class="mh-label">SUNSET AT ERIMITIS</span>
-                            <div class="mh-time" id="sunsetTimer">00:00:00</div>
-                            <span class="mh-sub">Golden hour on the cliffs.</span>
-                        </div>
-                    </div>
-
-                    <div class="intro-img-wrapper" style="position: relative;">
-                        <img src="Gemini_Generated_Image_y80d14y80d14y80d.jpg" class="intro-img parallax-target" alt="Dining Area">
-                        
-                        <div class="hotspot" style="top: 60%; left: 75%;">
-                            <div class="hotspot-dot"></div>
-                            <div class="hotspot-card">
-                                <span>BANG & OLUFSEN</span>
-                                <p>Immersive sound system.</p>
-                            </div>
-                        </div>
-
-                        <div class="hotspot" style="top: 40%; left: 44%;">
-                            <div class="hotspot-dot"></div>
-                            <div class="hotspot-card">
-                                <span>ITALIAN MARBLE</span>
-                                <p>Hand-selected Carrara stone.</p>
-                            </div>
-                        </div>
-                    </div>
+        <div class="intro-img-wrapper">
+            <img src="Gemini_Generated_Image_y80d14y80d14y80d.jpg" class="intro-img parallax-target" alt="Dining Area of Celadon Villa" loading="lazy">
+            
+            <div class="hotspot hotspot-audio">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-card">
+                    <span>BANG & OLUFSEN</span>
+                    <p>Immersive sound system.</p>
                 </div>
-            </section>
+            </div>
+
+            <div class="hotspot hotspot-marble">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-card">
+                    <span>ITALIAN MARBLE</span>
+                    <p>Hand-selected Carrara stone.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
             <section class="text-center">
                 <h3 class="reveal-text">The Lithos Standard</h3>
@@ -390,11 +543,13 @@
 
             <section class="bg-alt text-center">
                 <div class="scent-box reveal">
-                    <span class="scent-label">OLFACTORY SIGNATURE</span>
-                    <h3>Wild Thyme & Warm Stone</h3>
-                    <p>A bespoke olfactory signature combining the sharpness of wild herbs with the salty breeze of the Ionian and the warmth of sun-baked stone.</p>
-                    <small style="color:var(--accent-olive); margin-top:15px; display:block;"><i class="fas fa-gift"></i> Complimentary scent sample.</small>
-                </div>
+    <span class="scent-label">OLFACTORY SIGNATURE</span>
+    <h3>Wild Thyme & Warm Stone</h3>
+    <p>A bespoke olfactory signature combining the sharpness of wild herbs with the salty breeze of the Ionian and the warmth of sun-baked stone.</p>
+    <small class="scent-sample">
+        <i class="fas fa-gift" aria-hidden="true"></i> Complimentary scent sample.
+    </small>
+</div>
             </section>
 
             <section class="nature-wrapper">
@@ -405,46 +560,50 @@
                         Disconnect to reconnect. Walk through ancient olive groves, enjoy a private yoga session on the stone terrace, and listen to the song of the cicadas.
                     </p>
                     
-                    <div style="margin-top:30px;">
-                        <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                            <i class="fas fa-tree" style="color:var(--accent-gold); font-size:1.2rem;"></i>
-                            <span style="font-weight:600; letter-spacing:1px; text-transform:uppercase;">Private Gardens</span>
+              <div class="features-list-wrapper">
+                        <div class="feature-item">
+                            <i class="fas fa-tree feature-icon" aria-hidden="true"></i>
+                            <span class="feature-text">Private Gardens</span>
                         </div>
-                        <div style="display:flex; align-items:center; gap:15px;">
-                            <i class="fas fa-wind" style="color:var(--accent-gold); font-size:1.2rem;"></i>
-                            <span style="font-weight:600; letter-spacing:1px; text-transform:uppercase;">Yoga Deck</span>
+                        <div class="feature-item">
+                            <i class="fas fa-wind feature-icon" aria-hidden="true"></i>
+                            <span class="feature-text">Yoga Deck</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="nature-visuals">
-                    <img src="Gemini_Generated_Image_lpv5qjlpv5qjlpv5.jpg" class="lightbox-trigger">
-                    <img src="Gemini_Generated_Image_d5919gd5919gd591.jpg" class="lightbox-trigger">
-                    <img src="Gemini_Generated_Image_3ueipa3ueipa3uei.jpg" class="lightbox-trigger">
-                    <img src="Gemini_Generated_Image_9alol79alol79alo.jpg" class="lightbox-trigger">
+                    <img src="Gemini_Generated_Image_lpv5qjlpv5qjlpv5.jpg" class="lightbox-trigger" alt="Private gardens overview" loading="lazy">
+                    <img src="Gemini_Generated_Image_d5919gd5919gd591.jpg" class="lightbox-trigger" alt="Lush green outdoor area" loading="lazy">
+                    <img src="Gemini_Generated_Image_3ueipa3ueipa3uei.jpg" class="lightbox-trigger" alt="Yoga deck surrounded by nature" loading="lazy">
+                    <img src="Gemini_Generated_Image_9alol79alol79alo.jpg" class="lightbox-trigger" alt="Relaxing outdoor nature space" loading="lazy">
                 </div>
             </section>
 
             <section class="text-center">
-                <div class="reveal-text">
-                    <span style="color:var(--accent-olive); letter-spacing:3px; font-size:0.8rem; font-weight:700;">PREPARE YOUR SENSES</span>
-                    <h3>Customize Your Arrival</h3>
-                    <p>Tell us how you want to start your retreat.</p>
-                </div>
+               <div class="reveal-text">
+    <span class="arrival-label">PREPARE YOUR SENSES</span>
+    <h3>Customize Your Arrival</h3>
+    <p>Tell us how you want to start your retreat.</p>
+</div>
 
                 <div class="builder-grid">
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
+                    <label class="build-option magnetic-btn">
+                        <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
                         <i class="fas fa-wine-glass-alt"></i><span>Local White Wine</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
+                    </label>
+                    <label class="build-option magnetic-btn">
+                        <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
                         <i class="fas fa-leaf"></i><span>Fresh Fruit Basket</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
+                    </label>
+                    <label class="build-option magnetic-btn">
+                        <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
                         <i class="fas fa-om"></i><span>Yoga Mats Ready</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
+                    </label>
+                    <label class="build-option magnetic-btn">
+                        <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
                         <i class="fas fa-book-open"></i><span>Guidebooks on Table</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
+                    </label>
                 </div>
             </section>
 
@@ -465,33 +624,42 @@
                     </div>
                 </div>
             </section>
-
-            <section class="text-center">
-                <h3>Discover More Gems</h3>
-                <div class="grid-3">
-                    <div class="discover-card magnetic-btn" onclick="window.location.href='villa-corfu.html'">
-                        <img src="Gemini_Generated_Image_kvbxwukvbxwukvbx.jpg" style="width:100%; height:200px; object-fit:cover; margin-bottom:15px;">
-                        <h4>Corfu</h4>
-                        <p>Iovíra</p>
-                    <div class="wishlist-icon" onclick="toggleHeart(this, event)">
-    <i class="far fa-heart"></i>
-</div></div>
-                    <div class="discover-card magnetic-btn" onclick="window.location.href='villa-tzoumerka.html'">
-                        <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg" style="width:100%; height:200px; object-fit:cover; margin-bottom:15px;">
-                        <h4>Epirus</h4>
-                        <p>Altitude Retreat</p>
-                   <div class="wishlist-icon" onclick="toggleHeart(this, event)">
-    <i class="far fa-heart"></i>
-</div> </div>
-                    <div class="discover-card magnetic-btn" onclick="window.location.href='villa-alexandroupoli.html'">
-                        <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg" style="width:100%; height:200px; object-fit:cover; margin-bottom:15px;">
-                        <h4>Thrace</h4>
-                        <p>Cymaphos</p>
-                    <div class="wishlist-icon" onclick="toggleHeart(this, event)">
-    <i class="far fa-heart"></i>
-</div></div>
-                </div>
-            </section>
+<section class="text-center">
+    <h3>Discover More Gems</h3>
+    <div class="grid-3">
+        
+        <div class="discover-card magnetic-btn">
+            <a class="discover-card-link" href="villa-corfu.html" aria-label="View Iovíra in Corfu"></a>
+            <img src="Gemini_Generated_Image_kvbxwukvbxwukvbx.jpg" class="discover-img" alt="Iovíra luxury villa in Corfu" loading="lazy">
+            <h4>Corfu</h4>
+            <p>Iovíra</p>
+            <button type="button" class="wishlist-icon" aria-pressed="false" onclick="toggleHeart(this, event)" aria-label="Add Iovíra to wishlist">
+                <i class="far fa-heart" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <div class="discover-card magnetic-btn">
+            <a class="discover-card-link" href="villa-tzoumerka.html" aria-label="View Altitude Retreat in Epirus"></a>
+            <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg" class="discover-img" alt="Altitude Retreat luxury villa in Epirus" loading="lazy">
+            <h4>Epirus</h4>
+            <p>Altitude Retreat</p>
+            <button type="button" class="wishlist-icon" aria-pressed="false" onclick="toggleHeart(this, event)" aria-label="Add Altitude Retreat to wishlist">
+                <i class="far fa-heart" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <div class="discover-card magnetic-btn">
+            <a class="discover-card-link" href="villa-alexandroupoli.html" aria-label="View Cymaphos in Thrace"></a>
+            <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg" class="discover-img" alt="Cymaphos luxury villa in Thrace" loading="lazy">
+            <h4>Thrace</h4>
+            <p>Cymaphos</p>
+            <button type="button" class="wishlist-icon" aria-pressed="false" onclick="toggleHeart(this, event)" aria-label="Add Cymaphos to wishlist">
+                <i class="far fa-heart" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+    </div>
+</section>
 
             <footer>
                 <p>&copy; 2025 Lithos & Salina Luxury Retreats.</p>
@@ -501,23 +669,27 @@
     </div>
 
     <div class="booking-bar">
-        <div>
-            <span style="display:block; font-size:0.7rem; text-transform:uppercase; color:#999;">Daily Rate</span>
-            <strong style="font-size:1.4rem; color:var(--text-main);">From 3.000€</strong>
-        </div>
-        <button class="btn-reserve magnetic-btn" onclick="window.location.href='booking.html?villa=paxos'">Reserve Your Stay</button>
+    <div class="booking-rate">
+        <span class="rate-label">Daily Rate</span>
+        <strong class="rate-amount">From 3.000€</strong>
     </div>
+    <button class="btn-reserve magnetic-btn" onclick="window.location.href='booking.html?villa=paxos'">Reserve Your Stay</button>
+</div>
 
-    <div id="myLightbox" class="lightbox" onclick="closeLightbox(event)">
-        <span class="close-lb" style="position:absolute; top:30px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
-        <img class="lightbox-content" id="lbImg">
-    </div>
+<dialog id="myLightbox" class="lightbox" aria-label="Selected villa view">
+    <button type="button" class="close-lb" aria-label="Close lightbox" onclick="closeLightbox(event)">&times;</button>
+    <img class="lightbox-content" id="lbImg" alt="Villa view">
+</dialog>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" integrity="sha384-Ix9rC/2qxGBStYTwgeDWr4XGn5DSAU7LLElPvVLA3kAg1dt0zm09KjBX1OcDDUqz" crossorigin="anonymous"></script>
     <script>
         // --- WISHLIST TOGGLE ---
 function toggleHeart(el, e) {
     e.stopPropagation(); // Για να μην σε πηγαίνει στη σελίδα της βίλας όταν πατάς καρδιά
     el.classList.toggle('active');
+    el.setAttribute('aria-pressed', el.classList.contains('active') ? 'true' : 'false');
     
     const icon = el.querySelector('i');
     if (el.classList.contains('active')) {
@@ -578,10 +750,13 @@ function toggleHeart(el, e) {
 
         const lightbox = document.getElementById('myLightbox');
         const lbImg = document.getElementById('lbImg');
-        document.querySelectorAll('.lightbox-trigger').forEach(img => {
-            img.addEventListener('click', () => { lightbox.style.display="block"; lbImg.src=img.src; });
+        lightbox.addEventListener('click', event => {
+            if (event.target === lightbox) lightbox.close();
         });
-        function closeLightbox(e) { if(e.target===lightbox || e.target.classList.contains('close-lb')) lightbox.style.display="none"; }
+        document.querySelectorAll('.lightbox-trigger').forEach(img => {
+            img.addEventListener('click', () => { lbImg.src=img.src; lbImg.alt=img.alt; lightbox.showModal(); });
+        });
+        function closeLightbox(e) { if(e.target===lightbox || e.target.classList.contains('close-lb')) lightbox.close(); }
 
         // --- 5. MOUSE ---
         const dot = document.querySelector('.cursor-dot');
@@ -613,7 +788,9 @@ function toggleHeart(el, e) {
         setInterval(updateSunset, 1000);
         updateSunset();
 
-        function toggleOption(el) { el.classList.toggle('selected'); }
+        function toggleOption(el) {
+            el.classList.toggle('selected', el.querySelector('.option-toggle').checked);
+        }
     </script>
 </body>
 </html>

@@ -5,14 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iovíra | Corfu Luxury</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Teko:wght@400;500&display=swap" rel="stylesheet">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* --- CORFU BOOKING & LIGHTBOX CLEANUP --- */
+.rate-label {
+    display: block; 
+    font-size: 0.7rem; 
+    text-transform: uppercase; 
+    color: #626262;
+}
+
+.rate-amount {
+    font-size: 1.4rem; 
+    color: var(--text-main);
+}
+
+.close-lb {
+    position: absolute; 
+    top: 30px; 
+    right: 30px; 
+    color: white; 
+    font-size: 40px; 
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+        /* --- WELLNESS & CUSTOMIZE CLEANUP --- */
+.scent-olive-note {
+    color: var(--accent-olive); 
+    margin-top: 15px; 
+    display: block;
+}
+
+.wellness-features {
+    margin-top: 30px;
+}
+
+.well-feature-item {
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 15px;
+}
+
+.well-feature-item:last-child {
+    margin-bottom: 0;
+}
+
+.well-feature-icon {
+    color: var(--accent-olive); 
+    font-size: 1.2rem;
+}
+
+.well-feature-text {
+    font-weight: 600; 
+    letter-spacing: 1px; 
+    text-transform: uppercase;
+}
+
+.prepare-senses-badge {
+    color: var(--accent-olive); 
+    letter-spacing: 3px; 
+    font-size: 0.8rem; 
+    font-weight: 700;
+}
+        /* --- CORFU INTRO CLEANUP --- */
+.corfu-welcome-badge {
+    color: var(--accent-olive); 
+    letter-spacing: 2px; 
+    font-weight: 700; 
+    text-transform: uppercase;
+}
+
+.corfu-weather-widget {
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+    margin-top: 30px;
+}
+
+.corfu-weather-icon {
+    font-size: 2rem; 
+    color: var(--accent-gold);
+}
+
+.corfu-weather-temp {
+    font-size: 1.2rem;
+}
+
+.corfu-weather-location {
+    display: block; 
+    font-size: 0.8rem; 
+    color: #626262;
+}
+
+.intro-img-wrapper {
+    position: relative;
+}
+
+/* Θέσεις των Hotspots για τη σελίδα της Κέρκυρας */
+.hotspot-panorama {
+    top: 25%; 
+    left: 15%;
+}
+
+.hotspot-stone {
+    top: 70%; 
+    left: 20%;
+}
         .wishlist-icon {
     position: absolute; top: 20px; right: 20px; z-index: 10;
     width: 40px; height: 40px; background: white; border-radius: 50%;
@@ -91,12 +195,14 @@
         .hero-subtitle { font-size: 1rem; letter-spacing: 6px; text-transform: uppercase; color: #fff; font-weight: 600; margin-bottom: 20px; display: block; opacity: 0; }
         .hero-title { font-size: 7vw; font-style: italic; color: #ffffff; text-shadow: 0 5px 30px rgba(0,0,0,0.2); margin-bottom: 30px; opacity: 0; }
         
-        .btn-round {
-            width: 140px; height: 140px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.6);
-            display: flex; align-items: center; justify-content: center; color: white;
-            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
-            backdrop-filter: blur(5px); margin: 0 auto; transition: 0.3s; opacity: 0; cursor: pointer;
-        }
+      .btn-round {
+    width: 140px; height: 140px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.6);
+    display: flex; align-items: center; justify-content: center; color: white;
+    text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+    -webkit-backdrop-filter: blur(5px); /* <--- Προσθέτεις αυτή τη γραμμή */
+    backdrop-filter: blur(5px); 
+    margin: 0 auto; transition: 0.3s; opacity: 0; cursor: pointer; background: transparent; font-family: inherit;
+}
         .btn-round:hover { background: white; color: var(--accent-olive); transform: scale(1.1); }
 
         /* --- SECTIONS --- */
@@ -151,9 +257,21 @@
         }
         .mh-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-olive); font-weight: 700; display: block; }
         .mh-time {
-            font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; line-height: 1; margin: 5px 0; font-weight: 600;
-            background: linear-gradient(45deg, #D4AF37, #9966cc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 3.5rem; 
+    line-height: 1; 
+    margin: 5px 0; 
+    font-weight: 600;
+    
+    /* Fallback χρώμα αν ο browser δεν υποστηρίζει gradients σε κείμενο */
+    color: #D4AF37; 
+    
+    /* Σωστό Gradients με Vendor Prefixes για μηδενικά warnings */
+    background: linear-gradient(45deg, #D4AF37, #9966cc); 
+    -webkit-background-clip: text; 
+    background-clip: text; /* Standard έκδοση */
+    -webkit-text-fill-color: transparent;
+}
         .mh-sub { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-style: italic; color: #888; }
 
         /* WELCOME BUILDER */
@@ -185,20 +303,24 @@
         .btn-reserve:hover { background: var(--accent-gold); }
 
         /* AUDIO FLOAT */
-        .audio-float {
-            position: fixed; bottom: 100px; right: 40px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; border-radius: 50px;
-            color: #111; z-index: 990; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s;
-        }
+      .audio-float {
+    position: fixed; bottom: 100px; right: 40px; background: rgba(255,255,255,0.9); 
+    -webkit-backdrop-filter: blur(10px); /* <-- Προστέθηκε αυτή η γραμμή */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.1); padding: 10px 20px; border-radius: 50px;
+    color: #111; z-index: 990; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s;
+}
         
-        /* SPOTIFY (FIXED IN HEADER) */
-        .spotify-badge {
-            position: absolute; bottom: 40px; right: 40px; z-index: 20;
-            display: flex; align-items: center; gap: 15px; padding: 10px 20px;
-            background: rgba(15, 20, 13, 0.6); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50px; text-decoration: none; transition: 0.3s; color: white;
-        }
+/* SPOTIFY (FIXED IN HEADER) */
+.spotify-badge {
+    position: absolute; bottom: 40px; right: 40px; z-index: 20;
+    display: flex; align-items: center; gap: 15px; padding: 10px 20px;
+    background: rgba(15, 20, 13, 0.6); 
+    -webkit-backdrop-filter: blur(10px); /* <-- Προστέθηκε αυτή η γραμμή */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px; text-decoration: none; transition: 0.3s; color: white;
+}
         .spotify-badge:hover { background: white; color: #111; transform: scale(1.05); }
 
         /* WING CARDS */
@@ -215,7 +337,12 @@
         .discover-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white; text-align: left; }
 
         /* LIGHTBOX */
-        .lightbox { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
+        .lightbox { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(0,0,0,0.95); }
+        .lightbox[open] { display: block; }
+        .audio-float, .btn-round, .wishlist-icon, .close-lb { font: inherit; }
+        .wishlist-icon, .close-lb { border: 0; padding: 0; }
+        .discover-card-link { position: absolute; inset: 0; z-index: 1; }
+        .option-toggle { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
         .lightbox-content { margin: 5vh auto; display: block; max-height: 90vh; max-width: 90vw; }
 
         /* HOTSPOTS */
@@ -290,9 +417,9 @@
         </div>
     </nav>
 
-    <div class="audio-float magnetic-btn" onclick="toggleAudio()">
+    <button type="button" class="audio-float magnetic-btn" aria-label="Toggle Sound of Corfu" onclick="toggleAudio()">
         <i class="fas fa-water" id="audioIcon"></i> <span>Sound of Corfu</span>
-    </div>
+    </button>
     <audio id="bgAudio" loop><source src="corfu-vibe.mp3" type="audio/mpeg"></audio>
 
     <div id="smooth-wrapper">
@@ -304,7 +431,7 @@
                 <div class="hero-content">
                     <span class="hero-subtitle">The Ionian Jewel</span>
                     <h1 class="hero-title">Iovíra</h1>
-                    <div class="btn-round magnetic-btn" onclick="document.querySelector('#intro').scrollIntoView({behavior:'smooth'})">Explore</div>
+                    <button type="button" class="btn-round magnetic-btn" onclick="document.querySelector('#intro').scrollIntoView({behavior:'smooth'})">Explore</button>
                 </div>
 
                 <a href="LINK_PLAYLIST" target="_blank" class="spotify-badge magnetic-btn">
@@ -312,45 +439,49 @@
                 </a>
             </header>
 
-            <section id="intro" class="bg-alt">
-                <div class="intro-grid">
-                    <div class="intro-text">
-                        <span style="color:var(--accent-olive); letter-spacing:2px; font-weight:700; text-transform:uppercase;">Welcome</span>
-                        <h3 class="reveal-text">Your Exclusive Retreat in Corfu</h3>
-                        <p class="reveal-text">Rooted in the timeless beauty of Kanouli, Iovíra redefines island living. From the bespoke natural stone interiors to the private wellness sanctuary and the saltwater infinity pool, every detail is crafted for your ultimate relaxation. Step into a world where the horizon belongs only to you.</p>
-                        
-                        <div class="reveal-text" style="display:flex; gap:20px; align-items:center; margin-top:30px;">
-                            <i class="fas fa-sun" style="font-size:2rem; color:var(--accent-gold);"></i>
-                            <div><strong style="font-size:1.2rem;">26°C</strong> <span style="display:block; font-size:0.8rem; color:#777;">Corfu Today</span></div>
-                        </div>
-
-                        <div class="magic-hour-container reveal-text">
-                            <span class="mh-label">SUNSET IN KANOULI</span>
-                            <div class="mh-time" id="sunsetTimer">00:00:00</div>
-                            <span class="mh-sub">The sky turns violet. Be ready.</span>
-                        </div>
-                    </div>
-
-                    <div class="intro-img-wrapper" style="position: relative;">
-                        <img src="Gemini_Generated_Image_i9h6syi9h6syi9h6.jpg" class="intro-img parallax-target" alt="Living Room">
-                        
-                        <div class="hotspot" style="top: 25%; left: 15%;">
-                            <div class="hotspot-dot"></div>
-                            <div class="hotspot-card">
-                                <span>IONIAN PANORAMA</span>
-                                <p>Uninterrupted sea views from every corner.</p>
-                            </div>
-                        </div>
-                        <div class="hotspot" style="top: 70%; left: 20%;">
-                            <div class="hotspot-dot"></div>
-                            <div class="hotspot-card">
-                                <span>NATURAL STONE</span>
-                                <p>Locally sourced Corfiot stone floors.</p>
-                            </div>
-                        </div>
-                    </div>
+        <section id="intro" class="bg-alt">
+    <div class="intro-grid">
+        <div class="intro-text">
+            <span class="corfu-welcome-badge">Welcome</span>
+            <h3 class="reveal-text">Your Exclusive Retreat in Corfu</h3>
+            <p class="reveal-text">Rooted in the timeless beauty of Kanouli, Iovíra redefines island living. From the bespoke natural stone interiors to the private wellness sanctuary and the saltwater infinity pool, every detail is crafted for your ultimate relaxation. Step into a world where the horizon belongs only to you.</p>
+            
+            <div class="reveal-text corfu-weather-widget">
+                <i class="fas fa-sun corfu-weather-icon" aria-hidden="true"></i>
+                <div>
+                    <strong class="corfu-weather-temp">26°C</strong> 
+                    <span class="corfu-weather-location">Corfu Today</span>
                 </div>
-            </section>
+            </div>
+
+            <div class="magic-hour-container reveal-text">
+                <span class="mh-label">SUNSET IN KANOULI</span>
+                <div class="mh-time" id="sunsetTimer">00:00:00</div>
+                <span class="mh-sub">The sky turns violet. Be ready.</span>
+            </div>
+        </div>
+
+        <div class="intro-img-wrapper">
+            <img src="Gemini_Generated_Image_i9h6syi9h6syi9h6.jpg" class="intro-img parallax-target" alt="Luxury living room of Iovíra villa in Corfu with sea view" loading="lazy">
+            
+            <div class="hotspot hotspot-panorama">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-card">
+                    <span>IONIAN PANORAMA</span>
+                    <p>Uninterrupted sea views from every corner.</p>
+                </div>
+            </div>
+
+            <div class="hotspot hotspot-stone">
+                <div class="hotspot-dot"></div>
+                <div class="hotspot-card">
+                    <span>NATURAL STONE</span>
+                    <p>Locally sourced Corfiot stone floors.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
             <section class="text-center">
                 <h3 class="reveal-text">The Lithos Standard</h3>
@@ -374,65 +505,69 @@
                 </div>
             </section>
 
-            <section class="bg-alt text-center">
-                <div class="scent-box reveal">
-                    <span class="scent-label">OLFACTORY SIGNATURE</span>
-                    <h3>Jasmine, Saltwater & Linen</h3>
-                    <p>A fresh, airy scent reminiscent of morning swims and blooming island gardens.</p>
-                    <small style="color:var(--accent-olive); margin-top:15px; display:block;"><i class="fas fa-gift"></i> Complimentary scent sample.</small>
-                </div>
-            </section>
+         <section class="bg-alt text-center">
+    <div class="scent-box reveal">
+        <span class="scent-label">OLFACTORY SIGNATURE</span>
+        <h3>Jasmine, Saltwater & Linen</h3>
+        <p>A fresh, airy scent reminiscent of morning swims and blooming island gardens.</p>
+        <small class="scent-olive-note"><i class="fas fa-gift" aria-hidden="true"></i> Complimentary scent sample.</small>
+    </div>
+</section>
 
-            <section class="wellness-wrapper">
-                <div class="wellness-info">
-                    <span class="well-badge">THE EXPERIENCE</span>
-                    <h2 class="well-logo">The Sanctuary</h2>
-                    <p class="well-desc">
-                        A private spa resort at your fingertips. Start your day in the fully equipped gym, unwind in the hammam, and float above the sea in the infinity pool as the sun sets over the untouched coastline of Kanouli.
-                    </p>
-                    
-                    <div style="margin-top:30px;">
-                        <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
-                            <i class="fas fa-dumbbell" style="color:var(--accent-olive); font-size:1.2rem;"></i>
-                            <span style="font-weight:600; letter-spacing:1px; text-transform:uppercase;">Technogym Equipment</span>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:15px;">
-                            <i class="fas fa-infinity" style="color:var(--accent-olive); font-size:1.2rem;"></i>
-                            <span style="font-weight:600; letter-spacing:1px; text-transform:uppercase;">Heated Infinity Pool</span>
-                        </div>
-                    </div>
-                </div>
+<section class="wellness-wrapper">
+    <div class="wellness-info">
+        <span class="well-badge">THE EXPERIENCE</span>
+        <h2 class="well-logo">The Sanctuary</h2>
+        <p class="well-desc">
+            A private spa resort at your fingertips. Start your day in the fully equipped gym, unwind in the hammam, and float above the sea in the infinity pool as the sun sets over the untouched coastline of Kanouli.
+        </p>
+        
+        <div class="wellness-features">
+            <div class="well-feature-item">
+                <i class="fas fa-dumbbell well-feature-icon" aria-hidden="true"></i>
+                <span class="well-feature-text">Technogym Equipment</span>
+            </div>
+            <div class="well-feature-item">
+                <i class="fas fa-infinity well-feature-icon" aria-hidden="true"></i>
+                <span class="well-feature-text">Heated Infinity Pool</span>
+            </div>
+        </div>
+    </div>
 
-                <div class="wellness-visuals">
-                    <img src="Gemini_Generated_Image_j5xnvlj5xnvlj5xn.jpg" class="lightbox-trigger">
-                    <img src="Gemini_Generated_Image_wdzpq0wdzpq0wdzp.jpg" class="lightbox-trigger">
-                    <img src="corfu-bathroom.jpg" class="lightbox-trigger">
-                    <img src="Gemini_Generated_Image_cvcv81cvcv81cvcv.jpg" class="lightbox-trigger">
-                </div>
-            </section>
+    <div class="wellness-visuals">
+        <img src="Gemini_Generated_Image_j5xnvlj5xnvlj5xn.jpg" class="lightbox-trigger" alt="Corfu Villa Wellness Spa Area" loading="lazy">
+        <img src="Gemini_Generated_Image_wdzpq0wdzpq0wdzp.jpg" class="lightbox-trigger" alt="Luxury Indoor Pool in Corfu" loading="lazy">
+        <img src="corfu-bathroom.jpg" class="lightbox-trigger" alt="Premium Bathroom with Marble details" loading="lazy">
+        <img src="Gemini_Generated_Image_cvcv81cvcv81cvcv.jpg" class="lightbox-trigger" alt="Relaxation Area in Iovira Villa" loading="lazy">
+    </div>
+</section>
 
-            <section class="text-center">
-                <div class="reveal-text">
-                    <span style="color:var(--accent-olive); letter-spacing:3px; font-size:0.8rem; font-weight:700;">PREPARE YOUR SENSES</span>
-                    <h3>Customize Your Sanctuary</h3>
-                    <p>Tell us how you want to arrive.</p>
-                </div>
+<section class="text-center">
+    <div class="reveal-text">
+        <span class="prepare-senses-badge">PREPARE YOUR SENSES</span>
+        <h3>Customize Your Sanctuary</h3>
+        <p>Tell us how you want to arrive.</p>
+    </div>
 
-                <div class="builder-grid">
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
-                        <i class="fas fa-spa"></i><span>Aromatherapy</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
-                        <i class="fas fa-wine-bottle"></i><span>White Wine Chilled</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
-                        <i class="fas fa-om"></i><span>Yoga Mats Ready</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
-                    <div class="build-option magnetic-btn" onclick="toggleOption(this)">
-                        <i class="fas fa-water"></i><span>Pool Heated (28°C)</span><div class="check-circle"><i class="fas fa-check"></i></div>
-                    </div>
-                </div>
-            </section>
+    <div class="builder-grid">
+        <label class="build-option magnetic-btn">
+            <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
+            <i class="fas fa-spa" aria-hidden="true"></i><span>Aromatherapy</span><div class="check-circle"><i class="fas fa-check" aria-hidden="true"></i></div>
+        </label>
+        <label class="build-option magnetic-btn">
+            <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
+            <i class="fas fa-wine-bottle" aria-hidden="true"></i><span>White Wine Chilled</span><div class="check-circle"><i class="fas fa-check" aria-hidden="true"></i></div>
+        </label>
+        <label class="build-option magnetic-btn">
+            <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
+            <i class="fas fa-om" aria-hidden="true"></i><span>Yoga Mats Ready</span><div class="check-circle"><i class="fas fa-check" aria-hidden="true"></i></div>
+        </label>
+        <label class="build-option magnetic-btn">
+            <input class="option-toggle" type="checkbox" onchange="toggleOption(this.parentElement)">
+            <i class="fas fa-water" aria-hidden="true"></i><span>Pool Heated (28°C)</span><div class="check-circle"><i class="fas fa-check" aria-hidden="true"></i></div>
+        </label>
+    </div>
+</section>
 
             <section class="bg-alt text-center">
                 <h3>Sleeping Arrangements</h3>
@@ -453,26 +588,47 @@
             </section>
 
             <section class="text-center">
-                <h3>Discover More Gems</h3>
-                <div class="grid-3">
-                    <div class="discover-card magnetic-btn" onclick="window.location.href='villa-paxos.html'">
-                        <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp .jpg"><div class="discover-overlay"><span>Paxos</span><h4>Celadon</h4></div>
-                    <div class="wishlist-icon" onclick="toggleHeart(this, event)">
-    <i class="far fa-heart"></i>
-</div></div>
-                    <div class="discover-card magnetic-btn" onclick="window.location.href='villa-tzoumerka.html'">
-                        <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg"><div class="discover-overlay"><span>Epirus</span><h4>Altitude Retreat</h4></div>
-                    <div class="wishlist-icon" onclick="toggleHeart(this, event)">
-    <i class="far fa-heart"></i>
-</div></div>
-                    <div class="discover-card magnetic-btn" onclick="window.location.href='villa-alexandroupoli.html'">
-                        <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg"><div class="discover-overlay"><span>Thrace</span><h4>Cymaphos</h4></div>
-                    <div class="wishlist-icon" onclick="toggleHeart(this, event)">
-    <i class="far fa-heart"></i>
-</div></div>
-                </div>
-            </section>
-
+    <h3>Discover More Gems</h3>
+    <div class="grid-3">
+        
+        <div class="discover-card magnetic-btn">
+            <a class="discover-card-link" href="villa-paxos.html" aria-label="View Celadon in Paxos"></a>
+            <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp.jpg" alt="Celadon luxury villa in Paxos" loading="lazy">
+            <div class="discover-overlay">
+                <span>Paxos</span>
+                <h4>Celadon</h4>
+            </div>
+            <button type="button" class="wishlist-icon" aria-pressed="false" onclick="toggleHeart(this, event)" aria-label="Add Celadon to wishlist">
+                <i class="far fa-heart" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <div class="discover-card magnetic-btn">
+            <a class="discover-card-link" href="villa-tzoumerka.html" aria-label="View Altitude Retreat in Epirus"></a>
+            <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg" alt="Altitude Retreat luxury villa in Epirus" loading="lazy">
+            <div class="discover-overlay">
+                <span>Epirus</span>
+                <h4>Altitude Retreat</h4>
+            </div>
+            <button type="button" class="wishlist-icon" aria-pressed="false" onclick="toggleHeart(this, event)" aria-label="Add Altitude Retreat to wishlist">
+                <i class="far fa-heart" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <div class="discover-card magnetic-btn">
+            <a class="discover-card-link" href="villa-alexandroupoli.html" aria-label="View Cymaphos in Thrace"></a>
+            <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg" alt="Cymaphos luxury villa in Thrace" loading="lazy">
+            <div class="discover-overlay">
+                <span>Thrace</span>
+                <h4>Cymaphos</h4>
+            </div>
+            <button type="button" class="wishlist-icon" aria-pressed="false" onclick="toggleHeart(this, event)" aria-label="Add Cymaphos to wishlist">
+                <i class="far fa-heart" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+    </div>
+</section>
             <footer>
                 <p>&copy; 2025 Lithos & Salina Luxury Retreats.</p>
             </footer>
@@ -480,24 +636,28 @@
         </div>
     </div>
 
-    <div class="booking-bar">
-        <div>
-            <span style="display:block; font-size:0.7rem; text-transform:uppercase; color:#999;">Exclusive Rate</span>
-            <strong style="font-size:1.4rem; color:var(--text-main);">From 2.500€</strong>
-        </div>
-        <button class="btn-reserve magnetic-btn" onclick="window.location.href='booking.html?villa=corfu'">Reserve Your Stay</button>
+   <div class="booking-bar">
+    <div class="rate-box">
+        <span class="rate-label">Exclusive Rate</span>
+        <strong class="rate-amount">From 2.500€</strong>
     </div>
+    <button class="btn-reserve magnetic-btn" onclick="window.location.href='booking.html?villa=corfu'" aria-label="Reserve Your Stay at Corfu Villa">Reserve Your Stay</button>
+</div>
 
-    <div id="myLightbox" class="lightbox" onclick="closeLightbox(event)">
-        <span class="close-lb" style="position:absolute; top:30px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
-        <img class="lightbox-content" id="lbImg">
-    </div>
+<dialog id="myLightbox" class="lightbox" aria-label="Selected villa view">
+    <button type="button" class="close-lb" onclick="closeLightbox(event)" aria-label="Close lightbox">&times;</button>
+    <img class="lightbox-content" id="lbImg" alt="Enlarged villa preview">
+</dialog>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" integrity="sha384-Ix9rC/2qxGBStYTwgeDWr4XGn5DSAU7LLElPvVLA3kAg1dt0zm09KjBX1OcDDUqz" crossorigin="anonymous"></script>
     <script>
         // --- WISHLIST TOGGLE ---
 function toggleHeart(el, e) {
     e.stopPropagation(); // Για να μην σε πηγαίνει στη σελίδα της βίλας όταν πατάς καρδιά
     el.classList.toggle('active');
+    el.setAttribute('aria-pressed', el.classList.contains('active') ? 'true' : 'false');
     
     const icon = el.querySelector('i');
     if (el.classList.contains('active')) {
@@ -559,9 +719,12 @@ function toggleHeart(el, e) {
         const lightbox = document.getElementById('myLightbox');
         const lbImg = document.getElementById('lbImg');
         document.querySelectorAll('.lightbox-trigger').forEach(img => {
-            img.addEventListener('click', () => { lightbox.style.display="block"; lbImg.src=img.src; });
+            img.addEventListener('click', () => { lbImg.src=img.src; lbImg.alt=img.alt; lightbox.showModal(); });
         });
-        function closeLightbox(e) { if(e.target===lightbox || e.target.classList.contains('close-lb')) lightbox.style.display="none"; }
+        lightbox.addEventListener('click', event => {
+            if (event.target === lightbox) lightbox.close();
+        });
+        function closeLightbox(e) { if(e.target.classList.contains('close-lb')) lightbox.close(); }
 
         // --- 5. MOUSE ---
         const dot = document.querySelector('.cursor-dot');
@@ -593,7 +756,9 @@ function toggleHeart(el, e) {
         setInterval(updateSunset, 1000);
         updateSunset();
 
-        function toggleOption(el) { el.classList.toggle('selected'); }
+        function toggleOption(el) {
+            el.classList.toggle('selected', el.querySelector('.option-toggle').checked);
+        }
     </script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Lithos & Salina</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
@@ -72,7 +72,7 @@
         .btn-submit:hover { background: var(--olive); }
 
         /* FOOTER */
-        footer { text-align: center; padding: 30px; color: #888; font-size: 0.9rem; margin-top: 50px; }
+        footer { text-align: center; padding: 30px; color: #626262; font-size: 0.9rem; margin-top: 50px; }
 
         /* ΚΙΝΗΤΟ */
         @media (max-width: 768px) {
@@ -127,13 +127,13 @@
                 <input type="email" placeholder="Email" required>
                 <input type="tel" placeholder="Τηλέφωνο / Phone">
                 
-                <select>
-                    <option value="" disabled selected>Ενδιαφέρομαι για...</option>
-                    <option value="paxos">Villa Paxos</option>
-                    <option value="corfu">Villa Corfu</option>
-                    <option value="tzoumerka">Villa Tzoumerka</option>
-                    <option value="other">Γενικές Πληροφορίες</option>
-                </select>
+                <select aria-label="Επιλογή θέματος ενδιαφέροντος">
+    <option value="" disabled selected>Ενδιαφέρομαι για...</option>
+    <option value="paxos">Villa Paxos</option>
+    <option value="corfu">Villa Corfu</option>
+    <option value="tzoumerka">Villa Tzoumerka</option>
+    <option value="other">Γενικές Πληροφορίες</option>
+</select>
                 
                 <textarea rows="5" placeholder="Το μήνυμά σας..." required></textarea>
                 <button type="submit" class="btn-submit">ΑΠΟΣΤΟΛΗ</button>

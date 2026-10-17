@@ -4,25 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Curated luxury villas in Greece. Experience Paxos, Corfu, Tzoumerka, and Alexandroupoli. Lithos and Salina premium villas in Paxos, Corfu, and Epirus.">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline';">
     <title>Lithos & Salina | World Class Retreats</title>
 
+    <link rel="icon" type="image/png" href="salina-fleet-logo.png">
     <link rel="preload" as="image" href="fallback-hero.jpg">
-    <link rel="preload" as="image" href="path/to/your/hero-image.webp">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css" integrity="sha384-RkASv+6KfBMW9eknReJIJ6b3UnjKOKC5bOUaNgIY778NFbQ8MtWq9Lr/khUgqtTt" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous">
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" defer></script>
 
     <style>
+        .reveal-match-btn {
+    background-color: transparent !important;
+    color: #C2A158 !important;
+    border: 1px solid #C2A158 !important;
+    padding: 15px 40px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 13px !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    transition: all 0.4s ease !important;
+}
+
+.reveal-match-btn:hover {
+    background-color: #C2A158 !important;
+    color: #111 !important;
+    box-shadow: 0 0 15px rgba(194, 161, 88, 0.4) !important;
+}
+        .guest-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.guest-info span {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.guest-info small {
+    font-size: 0.7rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+.guest-item {
+    padding: 15px 0; /* Λίγο περισσότερο κενό για να αναπνέει */
+}
+/* --- SEARCH & GUEST DROPDOWN SYSTEM --- */
+.search-bar-container {
+    position: relative;
+    z-index: 1000;
+    overflow: visible; /* Για να μην κόβεται το μενού */
+}
+
+.search-group-guests {
+    position: relative;
+    z-index: 1001;
+}
+
+/* Το μενού που ανοίγει προς τα πάνω */
+.guests-dropdown {
+    display: none;
+    position: absolute;
+    bottom: 120%; /* Ανοίγει πάνω από το κουμπί */
+    left: 0;
+    width: 280px;
+    background: #111;
+    border: 1px solid rgba(194, 161, 88, 0.3); /* Χρυσαφένιο περίγραμμα */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    z-index: 9999 !important;
+}
+
+.guests-dropdown.active { display: block; }
+
+/* Styling για τα αντικείμενα */
+.guest-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Cormorant Garamond', serif; /* Ή η γραμματοσειρά σου */
+    letter-spacing: 1px;
+}
+
+.counter button {
+    background: transparent;
+    color: #C2A158;
+    border: 1px solid #C2A158;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.counter button:hover {
+    background: #C2A158;
+    color: #000;
+}
+
+/* --- PREMIUM CALENDAR STYLE --- */
+/* Αυτό μεταμορφώνει το απλό date input σε κομψό στοιχείο */
+input[type="date"] {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Για να αλλάξουμε το εικονίδιο του ημερολογίου (σε Webkit browsers) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.7) sepia(1) saturate(5) hue-rotate(5deg); /* Χρυσό χρώμα */
+    cursor: pointer;
+}
+
+/* Όταν πατάς πάνω στο input */
+input[type="date"]:focus {
+    outline: none;
+    border-bottom: 1px solid #C2A158;
+}
+
+.chevron-icon { 
+    font-size: 0.8rem; 
+    color: #C2A158; 
+}
+        /* --- NEWSLETTER & SUCCESS CLEANUP --- */
+.hidden-honey-trap {
+    display: none !important;
+}
+
+#successMessage {
+    display: none; /* Το κρατάμε κρυφό αρχικά, το JS θα το κάνει 'display: block' ή 'flex' */
+}
+
+.success-title {
+    font-size: 2rem; 
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.success-text {
+    color: #888;
+}
+        /* --- DESTINATIONS & MATCH CLEANUP --- */
+.match-reveal-btn {
+    margin-top: 50px;
+}
+
+.destinations-section {
+    position: relative; 
+    z-index: 5;
+}
+
+.destinations-header {
+    text-align: center; 
+    margin-bottom: 50px;
+}
+
+.destinations-title {
+    font-size: 3rem; 
+    color: #111;
+}
+
+.destinations-subtitle {
+    color: #666; 
+    margin-top: 10px; 
+    font-weight: 500;
+}
+
+.slider-wrapper-outer {
+    position: relative;
+}
+        .mood-subtitle {
+    color: #888; 
+    font-size: 1rem; 
+    letter-spacing: 2px; 
+    text-transform: uppercase;
+}
+        /* --- MARQUEE & STORY CLEANUP --- */
+.marquee-container {
+    background: var(--accent-gold); 
+    color: black; 
+    padding: 10px 0; 
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+.marquee-content {
+    display: inline-block; 
+    animation: marquee 20s linear infinite; 
+    font-size: 0.9rem; 
+    letter-spacing: 2px; 
+    font-weight: 600;
+}
+
+.story-badge {
+    color: var(--accent-gold); 
+    letter-spacing: 3px; 
+    font-size: 0.8rem; 
+    font-weight: 700;
+    display: block; /* Για να κάθεται σωστά πάνω από τον τίτλο */
+    margin-bottom: 10px;
+}
+        /* --- SEARCH BAR FIXES --- */
+.search-dest {
+    flex: 1.3;
+}
+
+.select-icon {
+    font-size: 0.8rem; 
+    color: #C2A158;
+}
         .cookie-consent {
     position: fixed; bottom: 30px; left: 30px; z-index: 20000;
     background: rgba(15, 15, 15, 0.95);
@@ -98,7 +303,7 @@ input, textarea {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9000;
             opacity: 0.05;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            background: url('noise.svg');
         }
 
         /* --- TYPOGRAPHY --- */
@@ -110,12 +315,15 @@ input, textarea {
         .cursor-dot, .cursor-circle {
             position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
             border-radius: 50%; z-index: 10000; pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
         .cursor-dot { width: 6px; height: 6px; background: var(--accent-gold); }
         .cursor-circle { 
             width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.3); 
             transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background-color 0.3s;
         }
+        body.mouse-ready .cursor-dot, body.mouse-ready .cursor-circle { opacity: 1; }
         body.hovering .cursor-circle { width: 60px; height: 60px; background: rgba(255,255,255,0.05); border-color: var(--accent-gold); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
         body.hovering .cursor-dot { background: white; }
 
@@ -126,21 +334,29 @@ input, textarea {
             flex-direction: column; justify-content: center; align-items: center;
         }
         .intro-text {
-            font-family: 'Cormorant Garamond'; font-size: 4vw; color: var(--accent-gold);
+            font-family: 'Cormorant Garamond', serif; font-size: 4vw; color: var(--accent-gold);
             overflow: hidden; margin-bottom: 20px;
         }
-        .enter-btn {
-            padding: 15px 40px; border: 1px solid rgba(255,255,255,0.2); background: transparent;
-            color: white; letter-spacing: 3px; text-transform: uppercase; font-size: 0.8rem;
-            transition: 0.5s; overflow: hidden; position: relative;
-        }
-        .enter-btn::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
-            background: var(--accent-gold); z-index: -1; transition: 0.5s var(--ease-out-expo);
-        }
-        .enter-btn:hover::before { width: 100%; }
-        .enter-btn:hover { color: black; border-color: var(--accent-gold); }
+       /* --- PREMIUM ΚΟΥΜΠΙ ENTER (INTRO) --- */
+.enter-btn {
+    background-color: transparent;
+    color: #C2A158; /* Το χρυσό χρώμα του λογότυπου */
+    border: 1px solid #C2A158;
+    padding: 12px 35px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: 30px;
+}
 
+.enter-btn:hover {
+    background-color: #C2A158;
+    color: #111; /* Σκούρο χρώμα στα γράμματα όταν περνάει το ποντίκι */
+    box-shadow: 0 0 20px rgba(194, 161, 88, 0.4); /* Ελαφριά χρυσή λάμψη */
+}
         /* --- NAVIGATION --- */
       nav {
     position: fixed; 
@@ -159,7 +375,7 @@ input, textarea {
     color: #ffffff; /* Καθαρό Λευκό */
 }
 .logo { 
-    font-family: 'Cormorant Garamond'; 
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.5rem; 
     letter-spacing: 2px; 
     font-weight: 700; 
@@ -269,7 +485,7 @@ input, textarea {
     background: transparent; 
     border: none; 
     color: white; 
-    font-family: 'Cormorant Garamond'; 
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem; 
     outline: none; 
     cursor: pointer;
@@ -376,15 +592,17 @@ input, textarea {
 /* Το Κουμπί της Μπάρας (Handle) */
 .premium-range::-webkit-slider-thumb {
     -webkit-appearance: none;
-    appearance: none; /* ΠΡΟΣΤΕΘΗΚΕ ΓΙΑ ΤΟ WARNING */
+    appearance: none;
     height: 24px; width: 24px;
     border-radius: 50%;
-    background: #C2A158; /* Χρυσό */
-    border: 3px solid #000; /* Μαύρο δαχτυλίδι */
-    box-shadow: 0 0 15px rgba(194, 161, 88, 0.8); /* Λάμψη */
+    background: #C2A158;
+    border: 3px solid #000;
+    box-shadow: 0 0 15px rgba(194, 161, 88, 0.8);
     cursor: pointer;
-    margin-top: -9px; /* Κεντράρισμα */
+    margin-top: -10px;
     transition: 0.2s;
+    position: relative;
+    top: 50%;
 }
 
 .premium-range::-webkit-slider-thumb:hover {
@@ -419,11 +637,11 @@ input, textarea {
             transform: translateY(20px); transition: 0.5s; opacity: 0;
         }
         .dest-card:hover .dest-info { transform: translateY(0); opacity: 1; }
-        .dest-title { font-size: 2rem; font-family: 'Cormorant Garamond'; }
+        .dest-title { font-size: 2rem; font-family: 'Cormorant Garamond', serif; }
 
         /* --- FOOTER --- */
         footer { background: #050505; padding: 100px 50px; text-align: center; border-top: 1px solid #111; }
-        .footer-logo { font-size: 5rem; color: #111; font-weight: 700; margin-bottom: 20px; font-family: 'Cormorant Garamond'; }
+        .footer-logo { font-size: 5rem; color: #111; font-weight: 700; margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; }
 
         /* Responsive */
         @media(max-width: 900px) {
@@ -483,7 +701,7 @@ span.flatpickr-weekday {
 /* Όταν περνάς το ποντίκι από πάνω */
 .flatpickr-day:hover {
     background: rgba(194, 161, 88, 0.2) !important; /* Αχνό χρυσό */
-    color: #C2A158 !important;
+    color: #fff !important;
 }
 
 /* Η επιλεγμένη μέρα (Σήμερα ή Κράτηση) */
@@ -1358,7 +1576,7 @@ button, a, .magnetic-btn {
     display: flex; justify-content: space-between; align-items: center;
     padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.g-type { display: block; font-size: 1.1rem; color: white; font-family: 'Cormorant Garamond'; }
+.g-type { display: block; font-size: 1.1rem; color: white; font-family: 'Cormorant Garamond', serif; }
 .g-age { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
 
 /* Κουμπιά +/- */
@@ -1367,7 +1585,7 @@ button, a, .magnetic-btn {
     width: 30px; height: 30px; border-radius: 50%;
     background: transparent; border: 1px solid rgba(255,255,255,0.3);
     color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: 0.3s; font-family: 'Montserrat';
+    transition: 0.3s; font-family: 'Montserrat', sans-serif;
 }
 .counter-btn:hover { border-color: #C2A158; color: #C2A158; background: rgba(194,161,88,0.1); }
 .count-num { font-size: 1.1rem; font-weight: 500; color: white; width: 15px; text-align: center;
@@ -1459,7 +1677,15 @@ button, a, .magnetic-btn {
         bottom: 20px !important; /* Κολλημένη κάτω */
     }
 }
-
+.counter button {
+    position: relative !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+}
+/* Φέρνει το ημερολόγιο πάνω από ΟΛΑ τα στοιχεία της σελίδας */
+.flatpickr-calendar {
+    z-index: 999999 !important;
+}
 </style>
 </head>
 <body>
@@ -1471,7 +1697,7 @@ button, a, .magnetic-btn {
 
     <div class="intro-overlay" id="intro">
         <div class="intro-text">LITHOS & SALINA</div>
-        <button class="enter-btn magnetic-btn" type="button" aria-label="Enter experience" onclick="enterSite()">ENTER EXPERIENCE</button>
+       <button class="enter-btn" onclick="enterSite()">ENTER EXPERIENCE</button>
     </div>
 
     <nav>
@@ -1488,10 +1714,11 @@ button, a, .magnetic-btn {
         <div id="smooth-content">
 
 <header>
-
+    
    <div class="video-bg-container">
-    <video autoplay muted loop playsinline poster="fallback-image.jpg" class="html5-video">
+    <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="fallback-image.jpg" class="html5-video">
         <source src="hero-bg.mp4" type="video/mp4">
+        <track kind="captions" src="captions.vtt" srclang="en" label="English">
         Your browser does not support the video tag.
     </video>
 </div>
@@ -1501,117 +1728,94 @@ button, a, .magnetic-btn {
         <div class="hero-sub">A Curated Collection in Greece</div>
     </div>
 
-<div class="search-bar">
+    <div class="search-bar">
+        
+        <div class="search-group search-dest">
+            <label id="dest-label">DESTINATION</label>
+            <div class="custom-select-wrapper">
+                <div class="custom-select" onclick="var menu=this.querySelector('.options'); var willOpen=!menu.classList.contains('open'); document.querySelectorAll('.options').forEach(function(el){el.classList.remove('open');}); if(willOpen){menu.classList.add('open');} this.setAttribute('aria-expanded', willOpen ? 'true' : 'false');" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="dest-label" tabindex="0">
+                    <div class="select-trigger">
+                        <span id="selected-dest">Select Location</span>
+                        <i class="fas fa-chevron-down select-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="options" role="listbox">
+                        <div class="option" onclick="selectDest('Paxos')" role="option" tabindex="0"><span class="opt-name">Paxos</span><span class="opt-desc">Ionian Gem</span></div>
+                        <div class="option" onclick="selectDest('Corfu')" role="option" tabindex="0"><span class="opt-name">Corfu</span><span class="opt-desc">Old Town Luxury</span></div>
+                        <div class="option" onclick="selectDest('Tzoumerka')" role="option" tabindex="0"><span class="opt-name">Tzoumerka</span><span class="opt-desc">Altitude Retreat</span></div>
+                        <div class="option" onclick="selectDest('Alexandroupoli')" role="option" tabindex="0"><span class="opt-name">Alexandroupoli</span><span class="opt-desc">Urban Living</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="search-group">
+    <label>CHECK-IN</label>
+    <input type="date" class="search-trigger" id="checkin-date" aria-label="Select check-in date" min="" onkeydown="return false;" inputmode="none">
+<div class="search-group search-group-guests" onclick="window.toggleGuests(event)">
+    <label>GUESTS</label>
+    <input type="text" id="guest-display" placeholder="2 Guests" class="search-trigger" readonly style="cursor: pointer;">
     
-    <div class="search-group" style="flex: 1.3;">
-        <label>DESTINATION</label>
-        <div class="custom-select-wrapper">
-            <div class="custom-select" onclick="this.querySelector('.options').classList.toggle('open');">
-                <div class="select-trigger">
-                    <span id="selected-dest">Select Location</span>
-                    <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: #C2A158;"></i>
-                </div>
-                <div class="options">
-                    <div class="option" onclick="selectDest('Paxos')"><span class="opt-name">Paxos</span><span class="opt-desc">Ionian Gem</span></div>
-                    <div class="option" onclick="selectDest('Corfu')"><span class="opt-name">Corfu</span><span class="opt-desc">Old Town Luxury</span></div>
-                    <div class="option" onclick="selectDest('Tzoumerka')"><span class="opt-name">Tzoumerka</span><span class="opt-desc">Altitude Retreat</span></div>
-                    <div class="option" onclick="selectDest('Alexandroupoli')"><span class="opt-name">Alexandroupoli</span><span class="opt-desc">Urban Living</span></div>
-                </div>
+    <div class="guests-dropdown" id="guestsDropdown" style="cursor: default;">
+        <div class="guest-item">
+            <div class="guest-info"><span>Adults</span><small>AGE 13+</small></div>
+            <div class="counter">
+                <button type="button" onclick="window.updateGuest('adults', -1, event)">-</button>
+                <span id="adults-count">2</span>
+                <button type="button" onclick="window.updateGuest('adults', 1, event)">+</button>
+            </div>
+        </div>
+        <div class="guest-item">
+            <div class="guest-info"><span>Children</span><small>AGE 2-12</small></div>
+            <div class="counter">
+                <button type="button" onclick="window.updateGuest('children', -1, event)">-</button>
+                <span id="children-count">0</span>
+                <button type="button" onclick="window.updateGuest('children', 1, event)">+</button>
+            </div>
+        </div>
+        <div class="guest-item">
+            <div class="guest-info"><span>Infants</span><small>UNDER 2</small></div>
+            <div class="counter">
+                <button type="button" onclick="window.updateGuest('infants', -1, event)">-</button>
+                <span id="infants-count">0</span>
+                <button type="button" onclick="window.updateGuest('infants', 1, event)">+</button>
+            </div>
+        </div>
+        <div class="guest-item">
+            <div class="guest-info"><span>Pets</span><small>SERVICE ANIMALS</small></div>
+            <div class="counter">
+                <button type="button" onclick="window.updateGuest('pets', -1, event)">-</button>
+                <span id="pets-count">0</span>
+                <button type="button" onclick="window.updateGuest('pets', 1, event)">+</button>
             </div>
         </div>
     </div>
-
-    <div class="search-group">
-        <label for="checkin-dates">CHECK-IN</label>
-        <input type="text" id="checkin-dates" class="date-picker" placeholder="Add Dates" aria-label="Check-in dates">
-    </div>
-
-    <div class="search-group" style="position: relative;">
-        <label>GUESTS</label>
-        <div class="guest-trigger" onclick="toggleGuestMenu()">
-            <span id="totalGuests">2 Guests</span>
-            <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: #C2A158;"></i>
-        </div>
-
-        <div class="guest-dropdown" id="guestMenu" onclick="event.stopPropagation()">
-            
-            <div class="guest-row">
-                <div class="guest-info">
-                    <span class="g-type">Adults</span>
-                    <span class="g-age">Age 13+</span>
-                </div>
-                <div class="guest-controls">
-                    <button class="counter-btn" type="button" aria-label="Decrease adults" onclick="updateCount('adults', -1)">-</button>
-                    <span id="count-adults" class="count-num">2</span>
-                    <button class="counter-btn" type="button" aria-label="Increase adults" onclick="updateCount('adults', 1)">+</button>
-                </div>
-            </div>
-
-            <div class="guest-row">
-                <div class="guest-info">
-                    <span class="g-type">Children</span>
-                    <span class="g-age">Age 2-12</span>
-                </div>
-                <div class="guest-controls">
-                    <button class="counter-btn" type="button" aria-label="Decrease children" onclick="updateCount('children', -1)">-</button>
-                    <span id="count-children" class="count-num">0</span>
-                    <button class="counter-btn" type="button" aria-label="Increase children" onclick="updateCount('children', 1)">+</button>
-                </div>
-            </div>
-
-            <div class="guest-row">
-                <div class="guest-info">
-                    <span class="g-type">Infants</span>
-                    <span class="g-age">Under 2</span>
-                </div>
-                <div class="guest-controls">
-                    <button class="counter-btn" type="button" aria-label="Decrease infants" onclick="updateCount('infants', -1)">-</button>
-                    <span id="count-infants" class="count-num">0</span>
-                    <button class="counter-btn" type="button" aria-label="Increase infants" onclick="updateCount('infants', 1)">+</button>
-                </div>
-            </div>
-
-            <div class="guest-row" style="border-bottom: none;">
-                <div class="guest-info">
-                    <span class="g-type">Pets</span>
-                    <span class="g-age">Service animals welcome</span>
-                </div>
-                <div class="guest-controls">
-                    <button class="counter-btn" type="button" aria-label="Decrease pets" onclick="updateCount('pets', -1)">-</button>
-                    <span id="count-pets" class="count-num">0</span>
-                    <button class="counter-btn" type="button" aria-label="Increase pets" onclick="updateCount('pets', 1)">+</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <button class="search-btn magnetic-btn" type="button" aria-label="Search villas"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
 </div>
+
+<button class="search-btn" onclick="performSearch(event)" aria-label="Search Villas">
+    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+</button>
 </header>
 
-            <div style="background: var(--accent-gold); color: black; padding: 10px 0; overflow: hidden; white-space: nowrap;">
-                <div style="display: inline-block; animation: marquee 20s linear infinite; font-size: 0.9rem; letter-spacing: 2px; font-weight: 600;">
-                    EXCLUSIVE RETREATS — PRIVATE CONCIERGE — AUTHENTIC GREEK HOSPITALITY — OFF MARKET LISTINGS — 
-                    EXCLUSIVE RETREATS — PRIVATE CONCIERGE — AUTHENTIC GREEK HOSPITALITY — OFF MARKET LISTINGS —
-                </div>
-            </div>
+        <div class="marquee-container">
+    <div class="marquee-content">
+        EXCLUSIVE RETREATS — PRIVATE CONCIERGE — AUTHENTIC GREEK HOSPITALITY — OFF MARKET LISTINGS — 
+        EXCLUSIVE RETREATS — PRIVATE CONCIERGE — AUTHENTIC GREEK HOSPITALITY — OFF MARKET LISTINGS —
+    </div>
+</div>
 
-            <section id="story" class="white-section">
-                <div class="story-grid">
-                    <div class="story-text" data-speed="0.9">
-                        <span style="color:var(--accent-gold); letter-spacing:3px; font-size:0.8rem; font-weight:700;">EST. 2012</span>
-                        <h2>More than a stay.<br>A curated legacy.</h2>
-                        <p>The story of Lithos & Salina began in 2012 in Paxos. What started as a personal vision to restore a single country house evolved into a passion for sharing the hidden soul of Greece.</p>
-                        <br>
-                        <p>From the turquoise waters of the Ionian to the snowy peaks of Epirus, we don't just offer keys to a house. We offer keys to the culture.</p>
-                    </div>
-                    <div class="story-img-wrap">
-                        <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp .jpg" class="story-img" data-speed="1.1" alt="Paxos Villa">
-                    </div>
-                </div>
-            </section>
-<section class="drive-collection reveal">
+<section id="story" class="white-section">
+    <div class="story-grid">
+        <div class="story-text" data-speed="0.9">
+            <span class="story-badge">EST. 2012</span>
+            <h2>More than a stay.<br>A curated legacy.</h2>
+            <p>The story of Lithos & Salina began in 2012 in Paxos. What started as a personal vision to restore a single country house evolved into a passion for sharing the hidden soul of Greece.</p>
+            <br>
+            <p>From the turquoise waters of the Ionian to the snowy peaks of Epirus, we don't just offer keys to a house. We offer keys to the culture.</p>
+        </div>
+        <div class="story-img-wrap">
+            <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp.jpg" class="story-img" data-speed="1.1" alt="Paxos Villa luxury stone house exterior" loading="lazy">
+        </div>
+    </div>
+</section>
     <div class="drive-grid">
         
         <div class="drive-content">
@@ -1637,23 +1841,22 @@ button, a, .magnetic-btn {
             </a>
         </div>
         
-        <div class="drive-logo-animation-wrap">
+   <div class="drive-logo-animation-wrap">
     <img src="salina-fleet-logo.png" 
          alt="Salina Luxury Fleet Logo" 
          class="salina-fleet-animated-logo"
          width="450" 
          height="450"
-         loading="lazy"
-         fetchpriority="low">
+         loading="lazy">
 </div>
     </div>
 </section>
 
          <section class="mood-section">
     <div class="mood-header-content">
-        <h2 class="mood-title">Find Your Vibe</h2>
-        <p style="color:#888; font-size:1rem; letter-spacing:2px; text-transform:uppercase;">Curate your experience</p>
-    </div>
+    <h2 class="mood-title">Find Your Vibe</h2>
+    <p class="mood-subtitle">Curate your experience</p>
+</div>
     
     <div class="mood-controls-wrapper">
         
@@ -1679,42 +1882,42 @@ button, a, .magnetic-btn {
             </div>
         </div>
 
-        <button class="enter-btn magnetic-btn" type="button" style="margin-top: 50px;" aria-label="Reveal my villa match" onclick="findMatch()">REVEAL MY MATCH</button>
+        <button class="reveal-match-btn" onclick="window.findMatch(event)">REVEAL MY MATCH</button>
     </div>
 </section>
 
-           <section id="destinations" class="white-section" style="position: relative; z-index: 5;">
+<section id="destinations" class="white-section destinations-section">
     
-    <div style="text-align: center; margin-bottom: 50px;">
-        <h2 style="font-size: 3rem; color: #111;">The Collection</h2>
-        <p style="color:#666; margin-top:10px; font-weight: 500;">Drag to explore or use the arrows below.</p>
+    <div class="destinations-header">
+        <h2 class="destinations-title">The Collection</h2>
+        <p class="destinations-subtitle">Drag to explore or use the arrows below.</p>
     </div>
 
-    <div class="slider-wrapper-outer" style="position: relative;">
+    <div class="slider-wrapper-outer">
         <div class="dest-slider" id="villaSlider">
             <div class="dest-card magnetic-btn" onclick="window.location.href='villa-paxos.html'">
-                <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp .jpg" alt="Celadon luxury villa on Paxos Island">
+                <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp.jpg" alt="Celadon luxury villa on Paxos Island" loading="lazy">
                 <div class="dest-info">
                     <h3 class="dest-title">Celadon</h3>
                     <span>Paxos Island</span>
                 </div>
             </div>
             <div class="dest-card magnetic-btn" onclick="window.location.href='villa-corfu.html'">
-                <img src="Gemini_Generated_Image_kvbxwukvbxwukvbx.jpg" alt="Iovíra luxury villa in Corfu Old Town with sea views">
+                <img src="Gemini_Generated_Image_kvbxwukvbxwukvbx.jpg" alt="Iovíra luxury villa in Corfu Old Town with sea views" loading="lazy">
                 <div class="dest-info">
                     <h3 class="dest-title">Iovíra</h3>
                     <span>Corfu Old Town</span>
                 </div>
             </div>
             <div class="dest-card magnetic-btn" onclick="window.location.href='villa-tzoumerka.html'">
-                <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg" alt="Altitude Retreat luxury villa in Tzoumerka mountains">
+                <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg" alt="Altitude Retreat luxury villa in Tzoumerka mountains" loading="lazy">
                 <div class="dest-info">
                     <h3 class="dest-title">Altitude Retreat</h3>
                     <span>Tzoumerka Mt.</span>
                 </div>
             </div>
             <div class="dest-card magnetic-btn" onclick="window.location.href='villa-alexandroupoli.html'">
-                <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg" alt="Cymaphos luxury villa in Alexandroupoli">
+                <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg" alt="Cymaphos luxury villa in Alexandroupoli" loading="lazy">
                 <div class="dest-info">
                     <h3 class="dest-title">Cymaphos</h3>
                     <span>Alexandroupoli</span>
@@ -1745,19 +1948,19 @@ button, a, .magnetic-btn {
             </p>
         </div>
 
-        <div class="newsletter-form-wrapper" id="newsletterFormBox">
-                <form class="newsletter-form" onsubmit="handleJoin(event)">
-    <input type="text" name="honey_trap" style="display:none !important" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field blank">
-    
-    <input type="email" id="news-email" placeholder="Your email address" required class="news-input" aria-label="Email address for newsletter">
-    <button type="submit" class="news-btn magnetic-btn" aria-label="Request access to private circle">REQUEST ACCESS</button>
-</form>
-        </div>
+   <div class="newsletter-form-wrapper" id="newsletterFormBox">
+    <form class="newsletter-form" onsubmit="handleJoin(event)">
+        <input type="text" name="honey_trap" class="hidden-honey-trap" tabindex="-1" autocomplete="off" aria-hidden="true" aria-label="Leave this field blank">
+        
+        <input type="email" id="news-email" placeholder="Your email address" required class="news-input" aria-label="Email address for newsletter">
+        <button type="submit" class="news-btn magnetic-btn" aria-label="Request access to private circle">REQUEST ACCESS</button>
+    </form>
+</div>
 
-        <div class="success-message" id="successMessage" style="display: none;">
-            <span style="font-size:2rem; color:var(--accent-gold);">Welcome to the Circle.</span>
-            <p style="color:#888;">Keep an eye on your inbox. Something exclusive is coming.</p>
-        </div>
+<div class="success-message" id="successMessage">
+    <span class="success-title">Welcome to the Circle.</span>
+    <p class="success-text">Keep an eye on your inbox. Something exclusive is coming.</p>
+</div>
 
     </div>
 </section>
@@ -1772,336 +1975,336 @@ button, a, .magnetic-btn {
     <p>We use cookies to curate your experience. <a href="#">Read Policy</a>.</p>
     <button type="button" aria-label="Accept cookies" onclick="acceptCookies()">ACCEPT LUXURY</button>
 </div>
+<script>
+    // --- 1. ΓΕΝΙΚΕΣ ΜΕΤΑΒΛΗΤΕΣ ---
+    window.selectedDestination = "";
+
+    // --- 2. ΛΟΓΙΚΗ ΠΡΟΟΡΙΣΜΩΝ ---
+   window.selectDest = function(value) {
+    var destEl = document.getElementById('selected-dest');
+    if(destEl) {
+        destEl.innerText = value;
+        destEl.style.color = "#fff";
+    }
+    window.selectedDestination = value;
+    window.checkSearchReady();
+    
+    // ΑΥΤΟ ΕΙΝΑΙ ΠΟΥ ΤΟ ΚΛΕΙΝΕΙ: 
+    // Ψάχνει το εξωτερικό κουτί (.custom-select) και του αφαιρεί το 'active'
+    var customSelect = document.querySelector('.custom-select');
+    var optionsMenu = document.querySelector('.options');
+    
+    if (customSelect) customSelect.classList.remove('active');
+    if (optionsMenu) optionsMenu.classList.remove('open');
+};
+
+    // --- 3. ΕΛΕΓΧΟΣ ΚΟΥΜΠΙΟΥ (Ανάβει όταν γεμίσουν όλα) ---
+    window.checkSearchReady = function() {
+        var dateInput = document.querySelector("input[type='date'], .date-picker");
+        var searchBtn = document.querySelector('.search-btn');
+        if (!searchBtn) return;
+        
+        if (window.selectedDestination !== "" && dateInput && dateInput.value !== "") {
+            searchBtn.style.opacity = "1";
+            searchBtn.style.pointerEvents = "auto";
+            searchBtn.style.cursor = "pointer";
+        } else {
+            searchBtn.style.opacity = "0.3";
+            searchBtn.style.pointerEvents = "none";
+        }
+    };
+
+    // --- 4. ΤΟ ΚΛΙΚ ΣΤΟ ΒΕΛΑΚΙ (Ανακατεύθυνση) ---
+    window.performSearch = function(event) {
+        if (event) event.preventDefault();
+        
+        var dest = window.selectedDestination;
+        
+        // Σε πάει στη σωστή σελίδα ανάλογα με την επιλογή
+        if(dest === 'Paxos') window.location.href = 'villa-paxos.html';
+        else if(dest === 'Corfu') window.location.href = 'villa-corfu.html';
+        else if(dest === 'Tzoumerka') window.location.href = 'villa-tzoumerka.html';
+        else if(dest === 'Alexandroupoli') window.location.href = 'villa-alexandroupoli.html';
+    };
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js" integrity="sha384-5JqMv4L/Xa0hfvtF06qboNdhvuYXUku9ZrhZh3bSk8VXF0A/RuSLHpLsSV9Zqhl6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" integrity="sha384-Ix9rC/2qxGBStYTwgeDWr4XGn5DSAU7LLElPvVLA3kAg1dt0zm09KjBX1OcDDUqz" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE" crossorigin="anonymous"></script>
     <script>
-        // --- SALINA FLEET LOGO PARALLAX (3D Effect) ---
-gsap.to(".salina-fleet-animated-logo", {
-    // Κινεί ελαφρώς το λογότυπο σε 3D στον άξονα Υ και Χ
-    y: "15%", 
-    x: "5%",
-    rotationX: 5, // Ελαφριά περιστροφή σε 3D
-    rotationY: -5,
-    ease: "none",
-    scrollTrigger: {
-        trigger: ".drive-collection",
-        start: "top bottom", 
-        end: "bottom top", 
-        scrub: true
+if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ 
+        duration: 1.2, 
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+        direction: 'vertical', 
+        smooth: true 
+    });
+    function raf(time) { 
+        lenis.raf(time); 
+        requestAnimationFrame(raf); 
     }
-});
-  gsap.to(".drive-img", { /* ΣΗΜΑΝΤΙΚΟ: Στοχεύει το .drive-img, ΟΧΙ το .drive-bg-image */
-    y: "-15%", 
-    ease: "none",
-    scrollTrigger: {
-        trigger: ".drive-collection",
-        start: "top bottom", 
-        end: "bottom top", 
-        scrub: true
-    }
-});
-        // --- DRIVE SECTION PARALLAX ANIMATION ---
+    requestAnimationFrame(raf);
+} else {
+    console.warn("Το Lenis δεν βρέθηκε, αλλά η σελίδα συνεχίζει κανονικά!");
+}
+
+// --- 2. GSAP SCROLLTRIGGER SYNC & PARALLAX ---
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".salina-fleet-animated-logo", { y: "15%", x: "5%", rotationX: 5, rotationY: -5, ease: "none", scrollTrigger: { trigger: ".drive-collection", start: "top bottom", end: "bottom top", scrub: true } });
+gsap.to(".drive-img", { y: "-15%", ease: "none", scrollTrigger: { trigger: ".drive-collection", start: "top bottom", end: "bottom top", scrub: true } });
+
 gsap.utils.toArray('.drive-img-wrap').forEach(container => {
     let img = container.querySelector('.drive-img');
-    gsap.to(img, {
-        y: "-15%", // Κίνηση 15% προς τα πάνω
-        ease: "none",
-        scrollTrigger: {
-            trigger: container,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-        }
-    });
+    if(img) gsap.to(img, { y: "-15%", ease: "none", scrollTrigger: { trigger: container, start: "top bottom", end: "bottom top", scrub: true } });
 });
-        // --- COOKIE BANNER ---
+
+gsap.utils.toArray('.story-img').forEach(img => {
+    gsap.to(img, { y: "10%", ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } });
+});
+
+// --- 3. COOKIE BANNER ---
 setTimeout(() => {
     if(!localStorage.getItem('cookiesAccepted')) {
-        document.getElementById('cookieBanner').classList.add('show');
+        const cb = document.getElementById('cookieBanner');
+        if(cb) cb.classList.add('show');
     }
-}, 3000); // Εμφανίζεται μετά από 3 δευτερόλεπτα
+}, 3000);
 
 function acceptCookies() {
-    document.getElementById('cookieBanner').classList.remove('show');
+    const cb = document.getElementById('cookieBanner');
+    if(cb) cb.classList.remove('show');
     localStorage.setItem('cookiesAccepted', 'true');
 }
-        // --- 1. SETUP LENIS (Smooth Scroll) ---
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Apple-like easing
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
+
+// --- 4. MAGNETIC CURSOR LOGIC ---
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorCircle = document.querySelector('.cursor-circle');
+const magneticBtns = document.querySelectorAll('.magnetic-btn');
+
+if (cursorDot && cursorCircle) {
+    window.addEventListener('mousemove', (e) => {
+        document.body.classList.add('mouse-ready');
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+        gsap.to(cursorCircle, { x: e.clientX, y: e.clientY, duration: 0.15, ease: "power2.out" });
+    });
+
+    magneticBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => { document.body.classList.add('hovering'); gsap.to(cursorCircle, { scale: 1.5 }); });
+        btn.addEventListener('mouseleave', () => { document.body.classList.remove('hovering'); gsap.to(cursorCircle, { scale: 1, x: 0, y: 0, clearProps: "transform" }); gsap.to(btn, { x: 0, y: 0 }); });
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
         });
+    });
+}
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // --- 2. GSAP SCROLLTRIGGER SYNC ---
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Parallax Effect for Images
-        gsap.utils.toArray('.story-img').forEach(img => {
-            gsap.to(img, {
-                y: "10%",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: img.parentElement,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        });
-
-        // --- 3. MAGNETIC CURSOR LOGIC ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorCircle = document.querySelector('.cursor-circle');
-        const magneticBtns = document.querySelectorAll('.magnetic-btn');
-
-        // Mouse Move
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Dot moves instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Circle moves with delay (GSAP for smoothness)
-            gsap.to(cursorCircle, {
-                x: posX,
-                y: posY,
-                duration: 0.15,
-                ease: "power2.out"
-            });
-        });
-
-        // Magnetic Pull Effect on Buttons
-        magneticBtns.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                document.body.classList.add('hovering');
-                gsap.to(cursorCircle, { scale: 1.5 });
-            });
-            
-            btn.addEventListener('mouseleave', () => {
-                document.body.classList.remove('hovering');
-                gsap.to(cursorCircle, { scale: 1, x: 0, y: 0, clearProps: "transform" }); // Reset
-                gsap.to(btn, { x: 0, y: 0 }); // Reset button pos
-            });
-
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                // Move button slightly towards mouse
-                gsap.to(btn, {
-                    x: x * 0.3, 
-                    y: y * 0.3,
-                    duration: 0.3
-                });
-            });
-        });
-
-        // --- 4. ENTER SITE SEQUENCE ---
-        function enterSite() {
-            const tl = gsap.timeline();
-            
-            // 1. Remove Intro
-            tl.to('#intro', {
-                y: "-100%",
-                duration: 1.5,
-                ease: "power4.inOut"
-            })
-            // 2. Animate Hero Text
-            .to('.hero-title', {
-                y: 0,
-                opacity: 1,
-                duration: 1.5,
-                ease: "power3.out",
-                stagger: 0.1
-            }, "-=0.5")
-            // 3. Animate Subtitle
-            .to('.hero-sub', {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                ease: "power2.out"
-            }, "-=1")
-            // 4. Reveal Search Bar
-            .to('.search-bar', {
-                y: 0,
-                opacity: 1,
-                duration: 1
-            }, "-=0.8");
-        }
-
-        // Logic for Matcher
-        function findMatch() {
-             window.location.href = "villa-paxos.html";
-        }
-        // --- ΛΕΙΤΟΥΡΓΙΑ ΒΕΛΑΚΙΩΝ SLIDER ---
-
-// Βεβαιώσου ότι το HTML στοιχείο του slider έχει id="villaSlider"
-const sliderElement = document.getElementById('villaSlider');
-
-// --- ΔΙΟΡΘΩΜΕΝΗ ΛΟΓΙΚΗ SLIDER (ΚΑΡΤΑ-ΚΑΡΤΑ) ---
-function scrollSlider(direction) {
-    const slider = document.getElementById('villaSlider');
-    const firstCard = slider.querySelector('.dest-card');
-    
-    // ΣΗΜΑΝΤΙΚΟ: Υπολογίζουμε το πραγματικό πλάτος της κάρτας + το κενό (gap)
-    // Στο CSS έχουμε ρυθμίσει το gap στα 40px (ή 20px) 
-    const cardWidth = firstCard.offsetWidth; 
-    const gap = 40; // Βάλε εδώ το ακριβές κενό που έχεις στο CSS dest-slider (ή 40px)
-    
-    const scrollAmount = cardWidth + gap;
-
-    if(slider) {
-        slider.scrollBy({
-            left: direction * scrollAmount, // Scroll κατά το ακριβές πλάτος της κάρτας
-            behavior: 'smooth'
-        });
+// --- 5. ENTER SITE SEQUENCE ---
+function enterSite() {
+    if(document.getElementById('intro')) {
+        const tl = gsap.timeline();
+        tl.to('#intro', { y: "-100%", duration: 1.5, ease: "power4.inOut" })
+          .to('.hero-title', { y: 0, opacity: 1, duration: 1.5, ease: "power3.out", stagger: 0.1 }, "-=0.5")
+          .to('.hero-sub', { y: 0, opacity: 1, duration: 1, ease: "power2.out" }, "-=1")
+          .to('.search-bar', { y: 0, opacity: 1, duration: 1 }, "-=0.8");
     }
 }
-// ----------------------------------------------------
-// --- NEWSLETTER SUBMISSION LOGIC ---
+
+// --- 6. ΛΕΙΤΟΥΡΓΙΑ ΒΕΛΑΚΙΩΝ SLIDER ---
+function scrollSlider(direction) {
+    const slider = document.getElementById('villaSlider');
+    if(!slider) return;
+    const firstCard = slider.querySelector('.dest-card');
+    if(!firstCard) return;
+    const cardWidth = firstCard.offsetWidth;
+    const scrollAmount = cardWidth + 40; // 40 είναι το gap
+    slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+}
+
+// --- 7. NEWSLETTER SUBMISSION LOGIC ---
 function handleJoin(e) {
     e.preventDefault();
-    
-    // 1. ΕΛΕΓΧΟΣ HONEYPOT (ΑΣΦΑΛΕΙΑ)
-    // Αν το κρυφό πεδίο έχει τιμή, τότε είναι BOT!
     const trap = document.querySelector('input[name="honey_trap"]');
-    if (trap && trap.value !== "") {
-        console.log("Bot detected. Blocking.");
-        return; // Σταματάει εδώ και δεν κάνει τίποτα
-    }
-
-    // 2. Η κανονική λειτουργία (αν είναι άνθρωπος)
+    if (trap && trap.value !== "") return;
     const formBox = document.getElementById('newsletterFormBox');
     const successMsg = document.getElementById('successMessage');
     const emailInput = document.querySelector('.news-input');
-
-    if(emailInput.value.length > 0) {
-        gsap.to(formBox, {
-            opacity: 0,
-            y: -20,
-            duration: 0.5,
-            onComplete: () => {
-                formBox.style.display = 'none';
+    if(emailInput && emailInput.value.length > 0) {
+        gsap.to(formBox, { opacity: 0, y: -20, duration: 0.5, onComplete: () => {
+            if(formBox) formBox.style.display = 'none';
+            if(successMsg) {
                 successMsg.style.display = 'block';
                 gsap.from(successMsg, { opacity: 0, y: 20, duration: 0.8, ease: "power2.out" });
             }
-        });
+        }});
     }
-}
-// --- CUSTOM DROPDOWN LOGIC ---
-function selectDest(value) {
-    document.getElementById('selected-dest').innerText = value;
-    document.getElementById('selected-dest').style.color = "#fff";
-    
-    // Αν θες να πηγαίνει κατευθείαν στη σελίδα μόλις επιλέξουν:
-    if(value === 'Paxos') window.location.href = 'villa-paxos.html';
-    else if(value === 'Corfu') window.location.href = 'villa-corfu.html';
-    else if(value === 'Tzoumerka') window.location.href = 'villa-tzoumerka.html';
-    else if(value === 'Alexandroupoli') window.location.href = 'villa-alexandroupoli.html';
 }
 
-// Κλείσιμο όταν κάνεις κλικ αλλού
-window.onclick = function(e) {
-    if (!e.target.closest('.custom-select')) {
-        const opts = document.querySelector('.options');
-        if(opts && opts.classList.contains('open')) opts.classList.remove('open');
-    }
-}
-// --- RANGE SLIDER FILL EFFECT ---
-function updateRange(el) {
-    // Υπολογίζει το ποσοστό
-    const value = (el.value - el.min) / (el.max - el.min) * 100;
+// --- 8. SEARCH, DESTINATIONS & CALENDAR (ΑΛΕΞΙΣΦΑΙΡΟ) ---
+window.selectedDestination = "";
+window.selectedDate = ""; // ΤΟ ΜΥΣΤΙΚΟ: Αποθηκεύουμε την ημερομηνία εδώ με ασφάλεια!
+
+window.checkSearchReady = function() {
+    var searchBtn = document.querySelector('.search-btn');
+    if (!searchBtn) return;
     
-    // Αλλάζει το background: Χρυσό αριστερά, Γκρι δεξιά
+    // Ελέγχει ΑΠΕΥΘΕΙΑΣ τις μεταβλητές (αγνοεί το HTML που μπερδεύει το ημερολόγιο)
+    if (window.selectedDestination !== "" && window.selectedDate !== "") {
+        searchBtn.style.opacity = "1";
+        searchBtn.style.pointerEvents = "auto";
+        searchBtn.style.cursor = "pointer";
+    } else {
+        searchBtn.style.opacity = "0.3";
+        searchBtn.style.pointerEvents = "none";
+    }
+};
+
+window.selectDest = function(value) {
+    var destEl = document.getElementById('selected-dest');
+    if(destEl) {
+        destEl.innerText = value;
+        destEl.style.color = "#fff";
+    }
+    window.selectedDestination = value;
+    window.checkSearchReady();
+    
+    var opts = document.querySelector('.options');
+    if(opts && opts.classList.contains('open')) opts.classList.remove('open');
+};
+
+window.performSearch = function(event) {
+    if(event) event.preventDefault();
+    var dest = window.selectedDestination;
+    if(dest === 'Paxos') window.location.href = 'villa-paxos.html';
+    else if(dest === 'Corfu') window.location.href = 'villa-corfu.html';
+    else if(dest === 'Tzoumerka') window.location.href = 'villa-tzoumerka.html';
+    else if(dest === 'Alexandroupoli') window.location.href = 'villa-alexandroupoli.html';
+};
+
+// "Γέφυρες" για να το βλέπει το HTML
+function selectDest(value) { window.selectDest(value); }
+function performSearch(event) { window.performSearch(event); }
+
+// Το Ημερολόγιο (Flatpickr)
+window.addEventListener('load', function() {
+    if (typeof flatpickr !== 'undefined') {
+        flatpickr("input[type='date'], .date-picker", {
+            dateFormat: "d-m-Y",
+            minDate: "today",
+            disableMobile: "true",
+            onChange: function(selectedDates, dateStr, instance) { 
+                window.selectedDate = dateStr; 
+                window.checkSearchReady(); 
+            }
+        });
+    }
+    window.checkSearchReady(); 
+});
+
+// --- 9. RANGE SLIDER FILL EFFECT ---
+function updateRange(el) {
+    const value = (el.value - el.min) / (el.max - el.min) * 100;
     el.style.background = `linear-gradient(to right, #C2A158 0%, #C2A158 ${value}%, rgba(255,255,255,0.1) ${value}%, rgba(255,255,255,0.1) 100%)`;
 }
 
-// Αρχικό γέμισμα όταν φορτώνει η σελίδα
-window.addEventListener('load', () => {
-    document.querySelectorAll('.premium-range').forEach(el => updateRange(el));
-});
-// --- INITIALIZE PREMIUM CALENDAR ---
-window.addEventListener('load', function() {
-    flatpickr("input[type='date'], .date-picker", {
-        // Ρυθμίσεις εμφάνισης
-        dateFormat: "d-m-Y", // Μορφή ημερομηνίας (π.χ. 25-08-2025)
-        minDate: "today",    // Δεν μπορείς να επιλέξεις παλιές ημερομηνίες
-        disableMobile: "true", // Εξαναγκάζει το custom theme και στα κινητά
-        
-        // Κείμενα (Αν θες Ελληνικά, αλλιώς άστο όπως είναι για Αγγλικά)
-        // locale: "gr" 
+document.addEventListener("DOMContentLoaded", function() {
+    const sliders = document.querySelectorAll('input[type="range"]');
+    sliders.forEach(slider => {
+        const event = new Event('input', { bubbles: true, cancelable: true });
+        slider.dispatchEvent(event);
     });
 });
-    // --- GUEST SELECTOR LOGIC ---
-let guests = { adults: 2, children: 0, infants: 0, pets: 0 };
 
-function toggleGuestMenu() {
-    const menu = document.getElementById('guestMenu');
-    menu.classList.toggle('active');
-}
+// --- 10. ΚΑΘΑΡΗ ΛΟΓΙΚΗ ΕΠΙΣΚΕΠΤΩΝ (GUESTS) ---
+window.guestData = { adults: 2, children: 0, infants: 0, pets: 0 };
 
-function updateCount(type, change) {
-    // Ελάχιστο όριο (0 για όλα, 1 για ενήλικες)
-    if (type === 'adults' && guests.adults + change < 1) return;
-    if (guests[type] + change < 0) return;
+window.toggleGuests = function(event) {
+    if (event) event.stopPropagation();
+    var dropdown = document.getElementById('guestsDropdown');
+    if (dropdown) dropdown.classList.toggle('active');
+};
 
-    // Αλλαγή τιμής
-    guests[type] += change;
-    
-    // Ενημέρωση αριθμού στο μενού
-    document.getElementById(`count-${type}`).innerText = guests[type];
+window.updateGuest = function(type, change, event) {
+    if (event) { event.stopPropagation(); event.preventDefault(); }
+    var newValue = window.guestData[type] + change;
+    if (newValue < 0) newValue = 0;
+    if (type === 'adults' && newValue < 1) newValue = 1;
+    window.guestData[type] = newValue;
+    var countElement = document.getElementById(type + '-count');
+    if (countElement) countElement.innerText = newValue;
+    window.updateGuestDisplay();
+};
 
-    // Ενημέρωση συνολικού κειμένου στην μπάρα
-    updateTotalText();
-}
+window.updateGuestDisplay = function() {
+    var totalGuests = window.guestData.adults + window.guestData.children;
+    var text = totalGuests + " Guest" + (totalGuests !== 1 ? "s" : "");
+    if (window.guestData.infants > 0) text += ", " + window.guestData.infants + " Inf";
+    if (window.guestData.pets > 0) text += ", " + window.guestData.pets + " Pet" + (window.guestData.pets !== 1 ? "s" : "");
+    var displayInput = document.getElementById('guest-display');
+    if (displayInput) displayInput.value = text;
+};
 
-function updateTotalText() {
-    let total = guests.adults + guests.children; // Τα βρέφη/κατοικίδια συνήθως δεν μετράνε στο "Guests" στα ξενοδοχεία, αλλά αν θες τα προσθέτεις
-    let text = `${total} Guest${total !== 1 ? 's' : ''}`;
-    
-    if (guests.infants > 0) text += `, ${guests.infants} Inf.`;
-    if (guests.pets > 0) text += `, ${guests.pets} Pet`;
+document.addEventListener('click', function(event) {
+    var dropdown = document.getElementById('guestsDropdown');
+    var searchGroup = document.querySelector('.search-group-guests');
+    if (dropdown && searchGroup && !searchGroup.contains(event.target)) {
+        dropdown.classList.remove('active');
+    }
 
-    document.getElementById('totalGuests').innerText = text;
-}
-
-// Κλείσιμο μενού αν κάνεις κλικ αλλού
-window.addEventListener('click', function(e) {
-    const menu = document.getElementById('guestMenu');
-    const trigger = document.querySelector('.guest-trigger');
-    if (menu && !menu.contains(e.target) && !trigger.contains(e.target)) {
-        menu.classList.remove('active');
+    var customSelect = event.target.closest('.custom-select');
+    var optionsMenu = document.querySelector('.options');
+    if (!customSelect && optionsMenu && optionsMenu.classList.contains('open')) {
+        optionsMenu.classList.remove('open');
     }
 });
-// --- SECURITY: ANTI-HACKER SCRIPT ---
+
+// --- 11. SECURITY: ANTI-HACKER SCRIPT ---
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.onkeydown = function(e) {
+    if(e.keyCode == 123) return false; // F12
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Inspect
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Console
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // View Source
+    if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) return false; // Save
+};
+window.findMatch = function(event) {
+    if (event) event.preventDefault();
+
+    var sliders = document.querySelectorAll('input[type="range"]');
+    if (sliders.length < 2) return;
+
+    var vibeValue = Number.parseInt(sliders[0].value, 10);   // 0 = Chill, 100 = Party
+    var natureValue = Number.parseInt(sliders[1].value, 10); // 0 = Mountain, 100 = Sea
+
+    // --- ΟΙ ΚΑΝΟΝΕΣ ΠΟΥ ΜΟΥ ΖΗΤΗΣΕΣ ---
     
-    // 1. Απαγόρευση Δεξί Κλικ
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-
-    // 2. Απαγόρευση Κουμπιών (F12, Save, Inspect)
-    document.onkeydown = function(e) {
-        if(e.keyCode == 123) { return false; } // F12
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Inspect
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Console
-        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // View Source
-        if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; } // Save
+    if (natureValue > 50) { 
+        // 1. ΕΙΜΑΣΤΕ ΠΡΟΣ ΤΗ ΘΑΛΑΣΣΑ
+        if (vibeValue >= 65) {
+            // Θάλασσα + Φουλ Party = Αλεξανδρούπολη
+            window.location.href = 'villa-alexandroupoli.html';
+        } 
+        else if (vibeValue <= 35) {
+            // Θάλασσα + Φουλ Chill = Παξοί
+            window.location.href = 'villa-paxos.html';
+        } 
+        else {
+            // Θάλασσα + Κέντρο (λίγο party, λίγο chill) = Κέρκυρα
+            window.location.href = 'villa-corfu.html';
+        }
+    } 
+    else {
+        // 2. ΕΙΜΑΣΤΕ ΠΡΟΣ ΤΟ ΒΟΥΝΟ
+        // Βουνό + Chill (ή οτιδήποτε στο βουνό) = Τζουμέρκα
+        window.location.href = 'villa-tzoumerka.html';
     }
+};
 
-
+function findMatch(event) { window.findMatch(event); }
 </script>
 </body>
 </html>

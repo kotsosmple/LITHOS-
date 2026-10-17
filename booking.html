@@ -4,10 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Booking | Lithos & Salina</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="salina-fleet-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
+        /* --- BOOKING SUMMARY STYLES --- */
+.summary-location {
+    font-size: 0.9rem; 
+    color: #666; 
+    margin-bottom: 15px;
+}
+
+.summary-deposit {
+    margin-top: 10px; 
+    color: var(--accent); 
+    font-weight: bold;
+}
+        .success-desc {
+    color: #666; 
+    margin-bottom: 20px;
+}
+
+.home-btn {
+    padding: 10px 30px; 
+    background: #333; 
+    color: white; 
+    border: none; 
+    cursor: pointer;
+}
+
+.secure-footer {
+    font-size: 0.8rem; 
+    color: #626262; 
+    margin-top: 15px; 
+    text-align: center;
+}
+        .back-link {
+    text-decoration: none; 
+    color: #666;
+}
         :root { --bg-color: #F9F7F2; --text-dark: #2C2825; --accent: #8B5A2B; --blue-btn: #1a3b5c; --white: #ffffff; --gold: #C2A158; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lato', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-dark); }
@@ -86,36 +122,47 @@
 <body>
 
     <nav>
-        <a href="index.html" style="text-decoration:none; color:#666;">&larr; Back to Home</a>
-        <a href="#" class="logo">LITHOS & SALINA</a>
-        <div class="secure-badge"><i class="fas fa-lock"></i> SSL Encrypted</div>
-    </nav>
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+    <a href="#" class="logo">LITHOS & SALINA</a>
+    <div class="secure-badge"><i class="fas fa-lock" aria-hidden="true"></i> SSL Encrypted</div>
+</nav>
 
     <div class="booking-container">
         
         <div class="booking-form">
             <h2>Confirm your stay</h2>
             
-            <div class="section-title first-title">1. Your Trip</div>
-            <div class="form-row">
-                <div class="form-col"><label>Check-in</label><input type="date" id="checkin"></div>
-                <div class="form-col"><label>Check-out</label><input type="date" id="checkout"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-col">
-                    <label>Guests</label>
-                    <select><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5+ Guests</option></select>
-                </div>
-            </div>
+     <div class="section-title first-title">1. Your Trip</div>
+<div class="form-row">
+    <div class="form-col">
+        <label for="checkin">Check-in</label>
+        <input type="date" id="checkin" name="checkin" required onkeydown="return false;" inputmode="none">
+    </div>
+    <div class="form-col">
+        <label for="checkout">Check-out</label>
+        <input type="date" id="checkout" name="checkout" required onkeydown="return false;" inputmode="none">
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-col">
+        <label for="guests">Guests</label>
+        <select id="guests" name="guests" aria-label="Επιλογή αριθμού επισκεπτών">
+            <option value="2">2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5+ Guests</option>
+        </select>
+    </div>
+</div>
 
             <div class="section-title">2. Contact Details</div>
             <div class="form-row">
-                <div class="form-col"><label>First Name</label><input type="text" placeholder="e.g. John"></div>
-                <div class="form-col"><label>Last Name</label><input type="text" placeholder="e.g. Doe"></div>
+                <div class="form-col"><label for="firstName">First Name</label><input type="text" id="firstName" placeholder="e.g. John" required></div>
+                <div class="form-col"><label for="lastName">Last Name</label><input type="text" id="lastName" placeholder="e.g. Doe" required></div>
             </div>
             <div class="form-row">
-                <div class="form-col"><label>Email</label><input type="email" placeholder="john@example.com"></div>
-                <div class="form-col"><label>Phone</label><input type="tel" placeholder="+30..."></div>
+                <div class="form-col"><label for="email">Email</label><input type="email" id="email" placeholder="john@example.com" required></div>
+                <div class="form-col"><label for="phone">Phone</label><input type="tel" id="phone" placeholder="+30..." required></div>
             </div>
 
             <div class="section-title">3. Payment</div>
@@ -133,13 +180,13 @@
                     <form id="fakePaymentForm" onsubmit="processFakePayment(event)">
                         <div class="form-row">
                             <div class="form-col">
-                                <label>Cardholder Name</label>
-                                <input type="text" placeholder="ALEXANDROS PAPADOPOULOS" required>
+                                <label for="cardholderName">Cardholder Name</label>
+                                <input type="text" id="cardholderName" placeholder="ALEXANDROS PAPADOPOULOS" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>Card Number</label>
+                                <label for="cardNum">Card Number</label>
                                 <div class="card-input-wrapper">
                                     <input type="text" id="cardNum" placeholder="0000 0000 0000 0000" maxlength="19" required>
                                     <i class="fas fa-credit-card card-input-icon"></i>
@@ -148,12 +195,12 @@
                         </div>
                         <div class="form-row">
                             <div class="form-col">
-                                <label>Expiry</label>
-                                <input type="text" placeholder="MM/YY" maxlength="5" required>
+                                <label for="cardExpiry">Expiry</label>
+                                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" pattern="\d{2}/\d{2}" required>
                             </div>
                             <div class="form-col">
-                                <label>CVC</label>
-                                <input type="password" placeholder="123" maxlength="3" required>
+                                <label for="cardCVC">CVC</label>
+                                <input type="password" id="cardCVC" placeholder="123" maxlength="4" inputmode="numeric" pattern="\d{3,4}" required>
                             </div>
                         </div>
 
@@ -163,40 +210,39 @@
                         </button>
                     </form>
 
-                    <div class="success-overlay" id="paymentSuccess">
-                        <div class="check-icon"><i class="fas fa-check"></i></div>
-                        <h3 style="margin-bottom:10px;">Booking Confirmed!</h3>
-                        <p style="color:#666; margin-bottom:20px;">Welcome to Lithos Luxury Retreats.</p>
-                        <button onclick="window.location.href='index.html'" style="padding:10px 30px; background:#333; color:white; border:none; cursor:pointer;">Return Home</button>
-                    </div>
+               <div class="success-overlay" id="paymentSuccess">
+    <div class="check-icon"><i class="fas fa-check" aria-hidden="true"></i></div>
+    <h3 class="success-title">Booking Confirmed!</h3>
+    <p class="success-desc">Welcome to Lithos Luxury Retreats.</p>
+    <button class="home-btn" onclick="window.location.href='index.html'">Return Home</button>
+</div>
 
-                </div>
-                <p style="font-size:0.8rem; color:#888; margin-top:15px; text-align:center;"><i class="fas fa-shield-alt"></i> Secure SSL Payment. No data is stored.</p>
-            </div>
-        </div>
-
-        <div class="booking-summary">
-            <div class="summary-box">
-                <h3 id="sum-title">Loading...</h3>
-                <p id="sum-loc" style="font-size:0.9rem; color:#666; margin-bottom:15px;">Greece</p>
-                <img id="sum-img" src="" class="villa-thumb" alt="Villa">
-                
-                <div class="summary-row"><span>Rate per night</span><span id="sum-price">---€</span></div>
-                <div class="summary-row"><span>Cleaning Fee</span><span>50€</span></div>
-                <div class="total-row"><span>Total</span><span id="sum-total">---€</span></div>
-                <div class="summary-row" style="margin-top:10px; color:var(--accent); font-weight:bold;"><span>Pay Now (30%)</span><span id="sum-deposit">---€</span></div>
-            </div>
-        </div>
+</div> <p class="secure-footer">
+    <i class="fas fa-shield-alt" aria-hidden="true"></i> Secure SSL Payment. No data is stored.
+</p>
+</div>
+<div class="booking-summary">
+    <div class="summary-box">
+        <h3 id="sum-title">Loading...</h3>
+        <p id="sum-loc" class="summary-location">Greece</p>
+        <img id="sum-img" src="" class="villa-thumb" alt="Selected villa preview" loading="lazy">
+        
+        <div class="summary-row"><span>Rate per night</span><span id="sum-price">---€</span></div>
+        <div class="summary-row"><span>Cleaning Fee</span><span>50€</span></div>
+        <div class="total-row"><span>Total</span><span id="sum-total">---€</span></div>
+        <div class="summary-row summary-deposit"><span>Pay Now (30%)</span><span id="sum-deposit">---€</span></div>
+    </div>
+</div>
 
     </div>
 
     <script>
         // --- 1. VILLA DATA ---
         const villas = {
-            'tzoumerka': { name: 'Alpine Chalet', loc: 'Tzoumerka, Epirus', img: '401960310.jpg', price: '450' },
-            'alex': { name: 'Villa Aurelia', loc: 'Alexandroupoli, Thrace', img: '584833582.jpg', price: '380' },
-            'paxos': { name: 'Villa Aperghis', loc: 'Gaios, Paxos', img: 'TTT_Ionian_Islands_Paxoi_Aperghis_JUN25_128 (1).jpg', price: '1200' },
-            'corfu': { name: 'Villa Monopati', loc: 'Corfu, Ionian', img: 'Villa-Monopati-6.webp', price: '3000' }
+            'tzoumerka': { name: 'Altitude Retreat', loc: 'Tzoumerka, Epirus', img: 'Gemini_Generated_Image_mejpznmejpznmejp.jpg', price: '650' },
+            'alex': { name: 'Cymaphos', loc: 'Alexandroupoli, Thrace', img: 'Gemini_Generated_Image_5o74wf5o74wf5o74.jpg', price: '2800' },
+            'paxos': { name: 'Celadon', loc: 'Gaios, Paxos', img: 'Gemini_Generated_Image_hlnpg7hlnpg7hlnp.jpg', price: '3000' },
+            'corfu': { name: 'Iovíra', loc: 'Corfu, Ionian', img: 'Gemini_Generated_Image_kvbxwukvbxwukvbx.jpg', price: '2500' }
         };
 
         // Load Data
@@ -210,7 +256,7 @@
             document.getElementById('sum-img').src = v.img;
             document.getElementById('sum-price').innerText = v.price + '€';
             
-            const total = parseInt(v.price) + 50;
+            const total = Number.parseInt(v.price, 10) + 50;
             const deposit = Math.round(total * 0.30);
             
             document.getElementById('sum-total').innerText = total + '€';
@@ -221,7 +267,12 @@
 
         // --- 2. PAYMENT SIMULATION ---
         function processFakePayment(e) {
-            e.preventDefault(); // Σταματάει την πραγματική αποστολή
+            e.preventDefault();
+
+            const form = document.getElementById('fakePaymentForm');
+            if (!form || !form.reportValidity()) {
+                return;
+            }
 
             const btn = document.getElementById('payBtn');
             const txt = document.getElementById('btnText');
@@ -234,20 +285,30 @@
                 return;
             }
 
-            // Animation Start
             btn.style.backgroundColor = "#555";
             txt.style.display = "none";
             spinner.style.display = "block";
             
-            // Wait 2.5 seconds
             setTimeout(() => {
-                success.classList.add('active'); // Show success message
+                success.classList.add('active');
             }, 2500);
         }
 
         // Format Card (Add spaces)
         document.getElementById('cardNum').addEventListener('input', function (e) {
             e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
+        });
+
+        document.getElementById('cardExpiry').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/[^\d]/g, '').slice(0, 4);
+            if (value.length > 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2);
+            }
+            e.target.value = value;
+        });
+
+        document.getElementById('cardCVC').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
         });
     </script>
 

@@ -6,11 +6,8 @@
     <title>LITHOS | The Journal</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         /* --- 1. LUXURY FOUNDATIONS --- */
@@ -37,7 +34,7 @@
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9000; opacity: 0.04;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            background: url('noise.svg');
         }
 
         /* Custom Cursor */
@@ -65,7 +62,7 @@
             position: fixed; top: 0; width: 100%; z-index: 1000;
             mix-blend-mode: difference; color: white;
         }
-        .logo { font-family: 'Cormorant Garamond'; font-size: 1.5rem; letter-spacing: 2px; font-weight: 700; text-decoration: none; color: white; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; letter-spacing: 2px; font-weight: 700; text-decoration: none; color: white; }
         .back-link { 
             text-decoration: none; color: white; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; 
             position: relative; padding-bottom: 5px;
@@ -80,7 +77,7 @@
         }
         .mag-label { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px; display: block; }
         .mag-title { font-size: 8vw; line-height: 0.9; margin-bottom: 30px; }
-        .mag-subtitle { font-family: 'Montserrat'; font-style: italic; font-size: 1.2rem; color: #666; max-width: 600px; }
+        .mag-subtitle { font-family: 'Montserrat', sans-serif; font-style: italic; font-size: 1.2rem; color: #626262; max-width: 600px; }
         .scroll-indicator { position: absolute; bottom: 50px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
@@ -95,7 +92,7 @@
             color: var(--accent-gold); display: inline-block; margin-bottom: 15px; border: 1px solid var(--accent-gold); padding: 5px 15px; border-radius: 50px;
         }
         .article-headline { font-size: 4rem; margin-bottom: 20px; }
-        .meta { font-family: 'Montserrat'; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+        .meta { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #626262; }
 
         /* Parallax Image Container */
         .img-container {
@@ -104,12 +101,12 @@
         .inline-img {
             width: 100%; height: 120%; object-fit: cover; /* 120% for parallax movement */
         }
-        .caption { font-size: 0.8rem; color: #777; font-style: italic; text-align: center; margin-top: -40px; margin-bottom: 60px; display: block; }
+        .caption { font-size: 0.8rem; color: #626262; font-style: italic; text-align: center; margin-top: -40px; margin-bottom: 60px; display: block; }
 
         /* Content Styling */
         .content { max-width: 700px; margin: 0 auto; font-size: 1.2rem; }
         .lead { 
-            font-family: 'Cormorant Garamond'; font-size: 1.8rem; font-style: italic; 
+            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic;
             line-height: 1.4; color: #111; margin-bottom: 40px; 
         }
         .lead::first-letter {
@@ -138,7 +135,7 @@
         .guide-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
         .destination-block:hover .guide-img-wrap img { transform: scale(1.05); }
 
-        .guide-subtitle { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 20px; color: #888; }
+        .guide-subtitle { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 20px; color: #626262; }
         .guide-content h3 { font-size: 3.5rem; margin-bottom: 30px; }
         
         .guide-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 30px 0; }
@@ -148,7 +145,7 @@
         .guide-list-item li i { margin-right: 15px; font-size: 0.8rem; opacity: 0.7; }
 
         .insider-tip {
-            font-family: 'Cormorant Garamond'; font-size: 1.4rem; font-style: italic; color: #111;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: #111;
             padding-left: 20px; border-left: 3px solid var(--accent-gold);
         }
 
@@ -163,7 +160,7 @@
         .tzoumerka-theme .insider-tip { border-left-color: #8B5A2B; }
 
         /* FOOTER */
-        .mag-footer { padding: 50px; text-align: center; border-top: 1px solid #ddd; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #888; }
+        .mag-footer { padding: 50px; text-align: center; border-top: 1px solid #ddd; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #626262; }
 
         @media(max-width: 900px) {
             .mag-title { font-size: 15vw; }
@@ -206,7 +203,7 @@
                 </div>
 
                 <div class="img-container">
-                    <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp .jpg" class="inline-img parallax-img" alt="Celadon">
+                    <img src="Gemini_Generated_Image_hlnpg7hlnpg7hlnp.jpg" class="inline-img parallax-img" alt="Celadon" loading="lazy">
                 </div>
                 <span class="caption">The main terrace offers a seamless blend of architecture and nature.</span>
 
@@ -226,7 +223,7 @@
                 </div>
 
                 <div class="img-container">
-                    <img src="Gemini_Generated_Image_kvbxwukvbxwukvbx.jpg" class="inline-img parallax-img" alt="Iovíra">
+                    <img src="Gemini_Generated_Image_kvbxwukvbxwukvbx.jpg" class="inline-img parallax-img" alt="Iovíra" loading="lazy">
                 </div>
                 <span class="caption">Sunset swims in the infinity pool are mandatory.</span>
 
@@ -246,7 +243,7 @@
                 </div>
 
                 <div class="img-container">
-                    <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg" class="inline-img parallax-img" alt="Altitude Retreat">
+                    <img src="Gemini_Generated_Image_mejpznmejpznmejp.jpg" class="inline-img parallax-img" alt="Altitude Retreat" loading="lazy">
                 </div>
                 <span class="caption">A cozy wooden haven surrounded by snowy peaks.</span>
 
@@ -266,7 +263,7 @@
                 </div>
 
                 <div class="img-container">
-                    <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg" class="inline-img parallax-img" alt="Cymaphos Night">
+                    <img src="Gemini_Generated_Image_5o74wf5o74wf5o74.jpg" class="inline-img parallax-img" alt="Cymaphos Night" loading="lazy">
                 </div>
                 <span class="caption">Modern architecture meets vibrant nightlife.</span>
 
@@ -279,14 +276,14 @@
             </article>
 
             <section class="travel-guide-section" id="travel-guide">
-                <div class="guide-head">
-                    <span style="letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; color: #999;">The Concierge Edit</span>
-                    <h2>Curated Destination Guides</h2>
-                </div>
+               <div class="guide-head">
+    <span class="guide-subtitle">The Concierge Edit</span>
+    <h2>Curated Destination Guides</h2>
+</div>
 
                 <div class="destination-block paxos-theme">
                     <div class="guide-img-wrap">
-                        <img src="paxos-antipaxos.magazine.jpg" alt="Paxos Hidden Beach">
+                        <img src="paxos-antipaxos.magazine.jpg" alt="Paxos Hidden Beach" loading="lazy">
                     </div>
                     <div class="guide-content">
                         <span class="guide-subtitle">The Ionian Hideaway</span>
@@ -316,7 +313,7 @@
 
                 <div class="destination-block reverse corfu-theme">
                     <div class="guide-img-wrap">
-                        <img src="corfu-magazine.jpg" alt="Corfu Old Town">
+                        <img src="corfu-magazine.jpg" alt="Corfu Old Town" loading="lazy">
                     </div>
                     <div class="guide-content">
                         <span class="guide-subtitle">The Cosmopolitan Lady</span>
@@ -346,7 +343,7 @@
 
                 <div class="destination-block alex-theme">
                     <div class="guide-img-wrap">
-                        <img src="alexadroupoli-magazine.jpg" alt="Alexandroupoli Lighthouse">
+                        <img src="alexadroupoli-magazine.jpg" alt="Alexandroupoli Lighthouse" loading="lazy">
                     </div>
                     <div class="guide-content">
                         <span class="guide-subtitle">The Urban Coast</span>
@@ -376,7 +373,7 @@
 
                 <div class="destination-block reverse tzoumerka-theme">
                     <div class="guide-img-wrap">
-                        <img src="tzoumerka-magazine.jpg" alt="Tzoumerka Mountains">
+                        <img src="tzoumerka-magazine.jpg" alt="Tzoumerka Mountains" loading="lazy">
                     </div>
                     <div class="guide-content">
                         <span class="guide-subtitle">The Wild Mountains</span>
@@ -413,6 +410,9 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha384-d+vyQ0dYcymoP8ndq2hW7FGC50nqGdXUEgoOUGxbbkAJwZqL7h+jKN0GGgn9hFDS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha384-poC0r6usQOX2Ayt/VGA+t81H6V3iN9L+Irz9iO8o+s0X20tLpzc9DOOtnKxhaQSE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" integrity="sha384-Ix9rC/2qxGBStYTwgeDWr4XGn5DSAU7LLElPvVLA3kAg1dt0zm09KjBX1OcDDUqz" crossorigin="anonymous"></script>
     <script>
         // --- 1. SMOOTH SCROLL (LENIS) ---
         const lenis = new Lenis({
