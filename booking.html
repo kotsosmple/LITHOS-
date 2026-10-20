@@ -266,50 +266,89 @@
         }
 
         // --- 2. PAYMENT SIMULATION ---
-        function processFakePayment(e) {
-            e.preventDefault();
+  async function processFakePayment(e) {
+    e.preventDefault();
 
-            const form = document.getElementById('fakePaymentForm');
-            if (!form || !form.reportValidity()) {
-                return;
-            }
+    const form = document.getElementById('fakePaymentForm');
+    if (!form || !form.reportValidity()) {
+        return;
+    }
 
-            const btn = document.getElementById('payBtn');
-            const txt = document.getElementById('btnText');
-            const spinner = document.getElementById('btnSpinner');
-            const success = document.getElementById('paymentSuccess');
-            const cardInput = document.getElementById('cardNum').value;
+    // Έλεγχος ότι έχουν συμπληρωθεί τα βασικά στοιχεία
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
 
-            if(cardInput.length < 14) {
-                alert("Please enter a simulated card number.");
-                return;
-            }
+    if (!checkin || !checkout || !firstName || !lastName || !email || !phone) {
+        alert("Παρακαλώ συμπληρώστε όλα τα απαραίτητα πεδία της κράτησης και των στοιχείων επικοινωνίας.");
+        return;
+    }
 
-            btn.style.backgroundColor = "#555";
-            txt.style.display = "none";
-            spinner.style.display = "block";
-            
-            setTimeout(() => {
-                success.classList.add('active');
-            }, 2500);
+    const btn = document.getElementById('payBtn');
+    const txt = document.getElementById('btnText');
+    const spinner = document.getElementById('btnSpinner');
+    const success = document.getElementById('paymentSuccess');
+
+    // Αλλαγή εμφάνισης κουμπιού (Loading)
+    btn.style.backgroundColor = "#555";
+    txt.style.display = "none";
+    spinner.style.display = "block";
+    
+    // Υπολογισμός τιμών (όπως τα είχες ήδη)
+    const basePrice = villas[villaKey] ? Number.parseInt(villas[villaKey].price, 10) : 0;
+    const totalPrice = basePrice > 0 ? basePrice + 50 : 0;
+    const depositAmount = Math.round(totalPrice * 0.30);
+
+    // Συγκεντρώνουμε τα δεδομένα για να τα στείλουμε στο Backend
+    const bookingData = {
+        villaId: villaKey || 'unknown',
+        checkin: checkin,
+        checkout: checkout,
+        guests: document.getElementById('guests').value,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        totalPrice: totalPrice,
+        depositAmount: depositAmount
+    };
+
+    try {
+        // Στέλνουμε το αίτημα στο Backend σου!
+        // Στέλνουμε το αίτημα στο LIVE Backend σου!
+        const response = await fetch('https://lithos-backend-ts0v.onrender.com/api/bookings',  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookingData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Η κράτηση μπήκε επιτυχώς στη Βάση!
+            spinner.style.display = "none";
+            success.classList.add('active');
+        } else {
+            // Κάτι πήγε στραβά στο Backend
+            alert("Σφάλμα κατά την κράτηση: " + result.error);
+            btn.style.backgroundColor = "var(--blue-btn)";
+            txt.style.display = "inline";
+            spinner.style.display = "none";
         }
 
-        // Format Card (Add spaces)
-        document.getElementById('cardNum').addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
-        });
-
-        document.getElementById('cardExpiry').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/[^\d]/g, '').slice(0, 4);
-            if (value.length > 2) {
-                value = value.slice(0, 2) + '/' + value.slice(2);
-            }
-            e.target.value = value;
-        });
-
-        document.getElementById('cardCVC').addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
-        });
+    } catch (error) {
+        console.error("Σφάλμα δικτύου:", error);
+        alert("Δεν ήταν δυνατή η σύνδεση με τον διακομιστή.");
+        btn.style.backgroundColor = "var(--blue-btn)";
+        txt.style.display = "inline";
+        spinner.style.display = "none";
+    }
+} 
     </script>
 
 </body>
